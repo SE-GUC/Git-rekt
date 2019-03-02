@@ -15,28 +15,6 @@ app.get('/api/applications', (req, res) => {
     res.send(applications)
 })
 
-// Create an application
-app.post('/api/applications/', (req, res) => {
-    const user = req.body.user
-    const task = req.body.task
-    const date = req.body.date
-    
-    const application = {
-        user: user,
-        task: task,
-        date: date,
-        id : '1'
-    }
-    applications.push(application)
-    res.send(applications)
-})
-
-
-// Get all applications
-app.get('/api/applications', (req, res) => {
-    res.send(applications)
-})
-
 
 // Get a certain application
 app.get('/api/applications/:id', (req, res) => {
