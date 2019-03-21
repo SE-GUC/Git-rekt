@@ -5,14 +5,14 @@ const mongoose = require('mongoose')
 const Application = require('../../models/application')
 const validator = require('../../validations/applicationvalidations')
 
-router.get('/', async (req,res) => {
+router.get('/GetApplication', async (req,res) => {
     const applications = await Application.find()
     res.json({data: applications})
 })
 
 
 
-router.post('/', async (req,res) => {
+router.post('/CreateApplication', async (req,res) => {
    try {
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
@@ -25,7 +25,7 @@ router.post('/', async (req,res) => {
 })
 
 
-router.put('/:id', async (req,res) => {
+router.put('UpdateApplication/:id', async (req,res) => {
     try {
      const id = req.params.id
      const application = await Application.findOne({id})
@@ -40,10 +40,11 @@ router.put('/:id', async (req,res) => {
     }  
  })
 
- router.delete('/:id', async (req,res) => {
+ router.delete('DeleteApplication/:id', async (req,res) => {
     try {
      const id = req.params.id
      const deletedApplication = await Application.findByIdAndRemove(id)
+     if(!deletedApplication) return res.status(404).send({error: 'Application does not exist'})
      res.json({msg:'Application was deleted successfully', data: deletedApplication})
     }
     catch(error) {
