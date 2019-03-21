@@ -7,12 +7,7 @@ const router = express.Router()
 const Notification = require('../../models/Notification')
 const validator = require('../../validations/NotificationValidations')
 
-// const Notifications = require('../../models/notification')
-// const Notification = [
-//     new Notifications('m7ama mahrous','adel shakal','ala am7ama ya mahrous yala',)
-    
-// ]
-// //main page 
+
 // app.get('/',(req,res) => {
 //     res.send(`<h1>send notifications</h1>`)
 // })
@@ -65,13 +60,7 @@ router.post('/', async (req,res) => {
     }  
  })
 
-//delete a notification
-app.delete('/api/notification/:id', (req,res) => {
-    const notificationId = req.body.id
-    const notification = Notification.find(notification => notificationId === notification.id )
-    Notification.splice(Notification.indexOf(notification,1))
-    res.json({ data:  Notification})
-})
+
 //mongoose
 router.delete('/:id', async (req,res) => {
     try {
