@@ -1,112 +1,73 @@
-// Import express
 const express = require('express')
-// Create the app
-const app = express()
-// Use it with post
-app.use(express.json())
+const bcrypt = require('bcryptjs')
+const router = express.Router()
+const mongoose = require('mongoose')
 
-const Joi = require('joi');
-const uuid = require('uuid');
-const router = express.Router();
+const User = require('../../models/User')
+const validator = require('../../validation/Uservalidation')
 
 
-router.post('/joi', (req, res) => {
-	const name = req.body.name
-    const age = req.body.age
-    const email = req.body.email
-    const github_portofolio = req.body.github_portofolio
-    const contact_info = req.body.contact_info
-    const updated_CV = req.body.updated_CV
-    const registered_on = req.body.registered_on
-    const signed = req.body.signed
-    const rating = req.body.rating
-    const notifications = req.body.notifications
-    const certifications = req.body.certifications
-    const id = req.body.id
-      
-	const schema = {
-		name: Joi.string().min(3).required(),
-        age: Joi.number().required(),
-        email: Joi.string().email().required(),
-        github_portofolio: Joi.string().min(3).required(),
-        contact_info: Joi.number().required(),
-        updated_CV: Joi.string().required(),
-        registered_on: Joi.number().required(),
-        signed: Joi.string().min(2).required(),
-        rating:Joi.number().required(),
-        notifications:Joi.string.required(),
-        certifications:Joi.string.required(),
-        id:Joi.number.required()
-	}
-
-	const result = Joi.validate(req.body, schema);
-
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
-	const newUser = {
-		name,
-        age,
-        email,
-        github_portofolio,
-        contact_info,
-        updated_CV,
-        registered_on,
-        signed,
-        rating,
-        notifications,
-        certifications,
-		id: uuid.v4(),
-	};
-	return res.json({ data: newUser });
-
+//create a new user
+router.post('/register', async (req,res) => {
+    const { email, age, name, password }  = req.body
+    const user = await User.findOne({email})
+    if(user) return res.status(400).json({error: 'Email already exists'})
+    
+    const salt = bcrypt.genSaltSync(10)
+    const hashedPassword = bcrypt.hashSync(password,salt)
+    const newUser = new User({
+            name,
+            password: hashedPassword ,
+            email,
+            age,
+            github_portofolio=github_portofolio,
+            contact_info,
+            updated_CV,
+            registered_on,
+            signed,
+            rating
+            ,notifications
+            ,certifications,
+            })
+    newUser
+    .save()
+    .then(user => res.json({data: user}))
+    .catch(err => res.json({error: 'Can not create user'}))
 })
 
 
-router.get('/', (req, res) => res.json({ data: user }));
+//update a user
+router.put('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const user = await User.findOne({id})
+     if(!user) return res.status(404).send({error: 'User does not exist'})
+     const isValidated = validator.updateValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedUser = await User.updateOne(req.body)
+     res.json({msg: 'User updated successfully'})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
+ //delete a user
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedUser = await User.findByIdAndRemove(id)
+     res.json({msg:'User was deleted successfully', data: deletedUser})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
 
-app.put('/api/users/:id', (req, res) => {
-    const userId = req.params.id 
-    const name = req.body.name
-    const age = req.body.age
-    const email = req.body.email
-    const github_portofolio = req.body.github_portofolio
-    const contact_info = req.body.contact_info
-    const updated_CV = req.body.updated_CV
-    const registered_on = req.body.registered_on
-    const signed = req.body.signed
-    const rating = req.body.rating
-    const notifications = req.body.notifications
-    const certifications = req.body.certifications
-    const user = users.find(user => user.id === userId)
-    res.send(users)
-})
+router.get('/', (req,res) => res.json({data: 'Users working'}))
 
 
-app.delete('/api/users/:id', (req, res) => {
-    const userId = req.params.id 
-    const name = req.body.name
-    const age = req.body.age
-    const email = req.body.email
-    const github_portofolio = req.body.github_portofolio
-    const contact_info = req.body.contact_info
-    const updated_CV = req.body.updated_CV
-    const registered_on = req.body.registered_on
-    const signed = req.body.signed
-    const rating = req.body.rating
-    const notifications = req.body.notifications
-    const certifications = req.body.certifications
-    const user = users.find(user => user.id === userId)
-    const index = users.indexOf(user)
-    users.splice(index,1)
-    res.send(users)
-})
-
-
-
-
-
-
-const port = process.env.PORT | 3000
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
-module.exports = router;
+module.exports = router
