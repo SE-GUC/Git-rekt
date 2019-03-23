@@ -3,8 +3,8 @@ const Joi = require('joi')
 module.exports = {
     createValidation: request => {
         const createSchema = {
-            approved_by: Joi.Admin().min(1).max(150).required()
-            , description: Joi.string().min(130).required()
+            approved_by: Joi.string().min(1).max(150).required()
+            , description: Joi.string().min(1).required()
             , posted_on: Joi.date().required()
             , posted_by: Joi.string().min(1).max(150).required()
             , Estimated_effort: Joi.string().min(4).max(150).required()
@@ -12,16 +12,16 @@ module.exports = {
             , Level_of_commitment: Joi.string().min(1).max(150).required()
             , Experience_level: Joi.string().min(1).max(150).required()
             , Monetary_compensation: Joi.number().min(1).required()
-            , Owner: Joi.Partner().min(1).max(150).required()
-            , Assigned_Consultancy: Joi.Consultancy().min(1).max(150).required()
+            , Owner: Joi.string().min(1).max(150).required()
+            , Assigned_Consultancy: Joi.string().min(1).max(150).required()
             , reviewed: Joi.boolean().required()
-            , Required_set_of_skills: Joi.array().items(Joi.string().min(1).max(50).required()).required()
-            , task_list: Joi.array().items(Joi.Task().min(1).required()).required()
+            , Required_set_of_skills: Joi.array().items(Joi.string().min(1).max(50).required())
+            , task_list: Joi.array().items(Joi.string().min(1).required())
             //, applicant_list: Joi.array().items(Joi.string().min(1).required())
             //not sure how to validate type user
-            , applicant_list: Joi.array().items(Joi.User().min(1).required())
+            , applicant_list: Joi.array().items(Joi.string().min(1).required())
             //, assigned_users: Joi.array().items(Joi.string().min(1).required())
-            , assigned_users: Joi.array().items(Joi.User().min(1).required())
+            , assigned_users: Joi.array().items(Joi.string().min(1).required())
         }
 
         return Joi.validate(request, createSchema)
@@ -30,7 +30,7 @@ module.exports = {
     updateValidation: request => {
         const updateSchema = {
             approved_by: Joi.string().min(1).max(150)
-            , description: Joi.string().min(130)
+            , description: Joi.string().min(1)
             , posted_on: Joi.date()
             , posted_by: Joi.string().min(1).max(150)
             , Estimated_effort: Joi.string().min(4).max(150)
@@ -43,7 +43,10 @@ module.exports = {
             , reviewed: Joi.boolean()
             , Required_set_of_skills: Joi.array().items(Joi.string().min(1).max(50))
             , task_list: Joi.array().items(Joi.string().min(1))
+            //, applicant_list: Joi.array().items(Joi.string().min(1).required())
+            //not sure how to validate type user
             , applicant_list: Joi.array().items(Joi.string().min(1))
+            //, assigned_users: Joi.array().items(Joi.string().min(1).required())
             , assigned_users: Joi.array().items(Joi.string().min(1))
         }
 
