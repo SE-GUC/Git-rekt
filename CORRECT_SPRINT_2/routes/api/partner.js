@@ -36,8 +36,8 @@ router.post('/', async (req,res) => {
 router.put('/:id', async (req,res) => {
     try {
      const id = req.params.id
-     const partner = await Partner.findByID({id})
-     if(!partner) return res.status(404).send({error: 'Partner does not exist'})
+     const updatePartner = await Partner.findById(id)
+     if(!updatePartner) return res.status(404).send({error: 'Partner does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const updatedPartner = await Partner.updateOne(req.body)
@@ -65,7 +65,7 @@ router.delete('/:id', async (req,res) => {
 router.get('/:id', async (req,res) =>{
     try {
         const id = req.params.id
-        const Partner1 = await Partner.findOneById(id)
+        const Partner1 = await Partner.findById(id)
         res.json({msg:'Partner was retrieved successfully', data: Partner1})
        }
        catch(error) {
@@ -80,13 +80,12 @@ router.get('/', async (req,res) => {
     res.json({data: partners})
 })
 
-//user story
 //contact admin through mail
-// router.get('/routes/api/partner/contact/:name', async (req,res) => {
+// router.get('/contact:name', async (req,res) => {
 //     try {
 //         const name = req.params.name
 //         const admin = await Admin.findOne(name)
-//         if(!admin) return res.status(404).send({error: 'admin does not exist'})
+//         if(!updatePartner) return res.status(404).send({error: 'Partner does not exist'})
 //         const mail = admin.contactInfo
 //         res.json({msg:'Admin was retrieved successfully', data: mail})
 //        }
