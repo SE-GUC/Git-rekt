@@ -16,16 +16,16 @@ const PartnerSchema = new Schema({
                 type: String,
                 required: true
         },
-        contactInfo: {
-                type: Number,
+        contact_info: {
+                type: String,
                 required: true    
         },
-        registeredOn: {
+        registered_on: {
                 type: Date,
                 required: true  
         } ,
         com_reg_num: {
-                type: String,
+                type: Number,
                 required: true
         },
         info: {
@@ -33,19 +33,24 @@ const PartnerSchema = new Schema({
                 required: true
         },
         signed: {
-                type: String,
+                type: Boolean,
+                required: true
         }, 
         rating: {
                 type: Number,
+                required: true
         },
         submitted_tasks: {
                 type: [String],
+                required: true
         },
         notifications:{
                 type: [String],
+            required: true
         },
         associates: {
                 type: [String],
+                required: true
         },
         board_members: {
                 type: [String],
@@ -53,9 +58,11 @@ const PartnerSchema = new Schema({
         },
         events: {
                 type: [String],
+                required: true
         },
         feedback: {
                 type: String,
+                required: true
         }
 })
 module.exports = Partner = mongoose.model('partners', PartnerSchema)
