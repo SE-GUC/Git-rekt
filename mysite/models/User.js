@@ -21,20 +21,26 @@ const UserSchema = new Schema({
     },
     githubPortofolio: {
         type: [String]
-    },contactInfo: {
+    },
+    contactInfo: {
         type: Number,
         required: true
-    }, updatedCV: {
+    },updatedCV: {
         type: [String]
-    },registeredOn: {
+    },
+    registeredOn: {
         type: Number
-    },signed: {
+    },
+    signed: {
         type: Boolean
-    },rating: {
+    },
+    rating: {
         type: Number
-    },notifications: {
+    },
+    notifications: {
         type: [String]
-    },certifications: {
+    },
+    certifications: {
         type: [String]
     },
 })

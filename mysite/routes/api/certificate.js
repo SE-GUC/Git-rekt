@@ -5,11 +5,18 @@ const mongoose = require('mongoose')
 const Certificate = require('../../models/Certificate')
 const validator = require('../../validations/certificateValidations')
 
+//Get all certificates
 router.get('/', async (req,res) => {
     const certificates = await Certificate.find()
     res.json({data: certificates})
 })
 
+ //search for specific certificate
+ router.get('/:id', async (req,res) => {
+    const certificateId = req.params.id
+    const certificate = await Certificate.findById(certificateId);
+    res.json(certificate);
+});
 
 // Create a certificate
 router.post('/', async (req,res) => {

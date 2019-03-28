@@ -46,12 +46,12 @@ router.put('/:consultancyId/assingConsultancy/:id',async(req,res) => {
     task.Assigned_Consultancy = consultancy
 })
 
-router.get('/:email', async (req,res) => { 
-    const admin = await Admin.findOne({email})
-    if(!admin)  return res.status(404).json({error:'admin does not exist'})
-    res.json({data: admin}) 
-    //res.json({data: 'Admins working'}
-})
+//get admin by ID
+router.get('/:id', async (req,res) => {
+    const adminId = req.params.id
+    const admin = await Admin.findById(adminId);
+    res.json(admin);
+});
 
 
 router.post('/', async (req,res) => {
@@ -66,27 +66,6 @@ router.post('/', async (req,res) => {
         console.log(error)
     }  
  })
-// router.post('/createAdmin',async (req,res) => {
-//     const {name, email, password} = req.body
-//     const admin = await Admin.findOne({email})    
-//     const isValid = adminValidator.createValidation(req.body)
-//     if(isValid.error){
-//         return res.status(400).send({error: isValid.error.details[0].message})
-//     }
-//     if(admin){
-//         return res.status(400).json({error:'email already exists'})
-//     }    
-//     const salt = bcrypt.genSaltSync(10)
-//     const hashedPassword = bcrypt.hashSync(password, salt)
-//     const newAdmin= Admins.create({name,hashedPassword,email})
-//     const newAdmin = new Admins({
-//         name,
-//         password: hashedPassword,
-//         email,
-//         access_level
-//     })
-//      newAdmin.save().then(admin => res.json({data: admin})).catch(err => res.json({error: 'Can not create user'}))
-// })
 
 //update admin 
 router.put('/updateAdmin/:email',async (req,res) => {

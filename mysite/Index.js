@@ -11,6 +11,7 @@ const users = require('./routes/api/user')
 const applications = require('./routes/api/application')
 const consultancy = require('./routes/api/consultancy')
 const admin = require('./routes/api/admin')
+const certificateApplication = require('./routes/api/certificateApplication')
 
 const app = express()
 
@@ -41,6 +42,7 @@ app.use('/api/user', users)
 app.use('/api/application', applications)
 app.use('/api/consultancy', consultancy)
 app.use('/api/admin', admin)
+app.use('/api/certificateApplication', certificateApplication)
 
 app.use((req,res) => res.status(404).send(`<h1>Can not find what you're looking for</h1>`))
 

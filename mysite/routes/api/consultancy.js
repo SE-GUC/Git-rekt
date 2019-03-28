@@ -7,6 +7,10 @@ const Consultancy = require('../../models/Consultancy')
 const applicationValidator = require('../../validations/applicationValidations')
 const Application = require('../../models/Application')
 const Task = require('../../models/Task')
+const fetch = require("node-fetch")
+const server = require("../../config/config")
+const Admin = require("../../models/Admin")
+
 
 
 //create consultancy mongooDB
@@ -77,10 +81,20 @@ router.post('/:consultancyEmail/applyForTask/:taskId', async (req,res) => {
         const newApplication =  await Application.create({email,tID})
         const newTask = await Task.find({tID})
         const newConsultancy =  await Consultancy.find({email})
-        newTask.applicant_list.push(newConsultancy)
+        newTask.applicant_list.push(newConsultancy.id)
     }catch(error) {
         console.log(error)
     }  
+})
+
+//Negotiate with admin
+router.get("/contactAdmin/:id", async(req,res)=>{
+    const admin = await fetch(`${server}/api/admin/${req.params.id}`)
+    .then(res => res.json())
+    .catch(err => console.error(err))
+    const Name = admin.name
+    const Email = admin.email
+    res.json({data: {Name , Email}})
 })
 
 router.get('/', (req, res) => res.json({ data:  Consultancy}))

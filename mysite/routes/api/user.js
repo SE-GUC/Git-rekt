@@ -1,40 +1,10 @@
 const express = require('express')
-const bcrypt = require('bcryptjs')
-
 const router = express.Router()
-const mongoose = require('mongoose')
-
 const User = require('../../models/User')
 const validator = require('../../validations/userValidations')
-
-
-/*create a new user
-router.post('/register', async (req,res) => {
-    const { email, age, name, password }  = req.body
-    const user = await User.findOne({email})
-    if(user) return res.status(400).json({error: 'Email already exists'})
-    
-    const salt = bcrypt.genSaltSync(10)
-    const hashedPassword = bcrypt.hashSync(password,salt)
-    const newUser = new User({
-            name,
-            password: hashedPassword ,
-            email,
-            age,
-            github_portofolio=github_portofolio,
-            contact_info,
-            updated_CV,
-            registered_on,
-            signed,
-            rating
-            ,notifications
-            ,certifications,
-            })
-    newUser
-    .save()
-    .then(user => res.json({data: user}))
-    .catch(err => res.json({error: 'Can not create user'}))
-})*/
+const fetch = require("node-fetch")
+const server = require("../../config/config")
+const Certificate = require("../../models/Certificate")
 
 //Post in a Books-method
 router.post('/', async (req,res) => {
@@ -80,10 +50,37 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 
- router.get('/', async (req,res) => {
+router.get('/', async (req,res) => {
     const users = await User.find()
     res.json({data: users})
 })
+
+//Search for Certificate
+router.get("/searchCertificate/:id", async(req,res)=>{
+    var j
+    await fetch(`${server}/api/certificate/${req.params.id}`)
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+    res.json(j)
+})
+
+//apply for a certificate
+router.post("/:userID/applyCertificate/:certificateID", async (req, res) => {
+    const body = {"certificate": `${req.param.certificateID}`,
+                  "applicant": `${req.param.userID}`,
+                  "status": "awaiting admin approval"}
+    var j
+    await fetch(`${server}/api/certificateApplication/`, {
+    method: "post",
+    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+    res.json(j)
+});
 
 
 module.exports = router
