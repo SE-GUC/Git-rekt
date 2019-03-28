@@ -1,28 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// Create the schema
-const CertificateSchema = new Schema({
-    title: {
+const AdminSchema = new Schema({
+    name: {
         type: String,
         required: true
     },
-    description: {
+    email: {
         type: String,
+        unique: true,
         required: true
     },
-    prerequisites: {
+    password: {
         type: String,
         required: true
-    },
-    issuedBy: {
-        type: String,
+     },
+    uploaded_tasks: {
+        type: [String],
         required: true
     },
-    type: {
-        type: String,
+    notifications:{
+        type: [String],
         required: true
     }
 })
 
-module.exports = Certificate = mongoose.model('certificates', CertificateSchema)
+module.exports = admin = mongoose.model('admins', AdminSchema)

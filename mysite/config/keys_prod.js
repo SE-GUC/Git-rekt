@@ -1,4 +1,4 @@
 
 module.exports = {
-    mongoURI: process.env.MONGO_URI,
+    mongoURI: 'mongodb+srv://Ali:Ali44@gitrekt-ohrak.mongodb.net/test?retryWrites=true',
 }

@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
-const mongodb = require('mongodb')
-const mongo = require('mongo')
 
 const Certificate = require('../../models/Certificate')
 const validator = require('../../validations/certificateValidations')
@@ -31,7 +29,7 @@ router.post('/', async (req,res) => {
 router.put('/:id', async (req,res) => {
     try {
      const id = req.params.id
-     const certificate = await Certificate.findOne({id})
+     const certificate = await Certificate.findById(id)
      if(!certificate) return res.status(404).send({error: 'Certificate does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
@@ -41,7 +39,7 @@ router.put('/:id', async (req,res) => {
     catch(error) {
         // We will be handling the error later
         console.log(error)
-    }  
+    }
  })
 
  router.delete('/:id', async (req,res) => {
@@ -53,7 +51,7 @@ router.put('/:id', async (req,res) => {
     catch(error) {
         // We will be handling the error later
         console.log(error)
-    }  
+    }
  })
 
  
