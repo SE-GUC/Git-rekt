@@ -6,6 +6,8 @@ const adminValidator = require('../../validations/adminValidations')
 const Task = require('../../models/Task')
 const User = require('../../models/User')
 const Consultancy = require('../../models/Consultancy')
+const Notification = require('../../models/Notification')
+
 
 
 
@@ -14,7 +16,6 @@ router.get('/', async (req,res) => {
     const admins = await Admin.find()
     res.json({data: admins})
 })
-
 //view task description 
 router.get('/:AdminEmail/viewTaskDesc/:TaskId', async (req,res) =>{
     const admins = await Admin.findById({AdminEmail})
@@ -40,8 +41,10 @@ router.put('/:userId/assignUser/:id',async(req,res) => {
 })
 //assign consultancy to task
 router.put('/:consultancyId/assingConsultancy/:id',async(req,res) => {
-    const consultancy = await Consultancy.findById({userId})
-    const task = await Task.findById({id})
+    const ConsultancyId = req.params.consultancyId
+    const Id = req.params.id
+    const consultancy = await Consultancy.findById({consultancyId})
+    const task = await Task.findById({Id})
     //task.applicant_list.pull(user)
     task.Assigned_Consultancy = consultancy
 })
