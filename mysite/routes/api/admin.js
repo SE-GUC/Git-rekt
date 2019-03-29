@@ -53,12 +53,20 @@ router.get('/:id', async (req,res) => {
     res.json(admin);
 });
 
-
+//create an admin
 router.post('/', async (req,res) => {
-    try {
-     const isValidated = adminValidator.createValidation(req.body)
-     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const newAdmin = await Admin.create(req.body)
+   const {name, email, password} = req.body
+    const admin = await Admin.findOne({email})    
+    const isValid = adminValidator.createValidation(req.body)
+    if(isValid.error){
+        return res.status(400).send({error: isValid.error.details[0].message})
+    }
+    if(admin){
+        return res.status(400).json({error:'email already exists'})
+    }    
+    const salt = bcrypt.genSaltSync(10)
+    const hashedPassword = bcrypt.hashSync(password, salt)
+     const newAdmin = await Admin.create({name,hashedPassword,email})
      res.json({msg:'Admin was created successfully', data: newAdmin})
     }
     catch(error) {
