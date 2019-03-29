@@ -138,18 +138,5 @@ router.post("/uploadTask/", async (req, res) => {
     res.json(j)
 });
 
-//get notified when a user applies for a certificate
-router.post("/getNotified/", async (req, res) => {
-    var j
-    await fetch(`${server}/api/task/`, {
-    method: "post",
-    body: JSON.stringify(req.body),
-    headers: { "Content-Type": "application/json" }
-  })
-    .then(res => res.json())
-    .then(json => j = json)
-    .catch(err => console.error(err))
-    res.json(j)
-});
 
 module.exports = router;
