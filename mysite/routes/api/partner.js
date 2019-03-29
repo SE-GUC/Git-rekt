@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const fetch = require('node-fetch')
+const axios = require('axios');
 
 // const app = express()
 // app.use(express.json())
@@ -9,6 +11,7 @@ const bcrypt = require('bcryptjs')
 const Partner = require('../../models/Partner')
 //const Admin = require('../../models/Admin')
 const validator = require('../../validations/partnerValidations')
+const tasks = 'http://localhost:3000/api/task'
 
 // //main page
 // router.get('/',(req,res) => {
@@ -79,6 +82,31 @@ router.get('/', async (req,res) => {
     const partners = await Partner.find()
     res.json({data: partners})
 })
+
+//Sumbit Task
+router.post('/submitTask/:id', async (req, res) => {
+    try{
+        var output;
+        const partner = await Partner.findById(req.params.id);
+        await fetch( tasks+'/', {
+            method : 'post',
+            body : JSON.stringify(req.body),
+            headers : {'Content-Type' : 'application/json'}
+        })
+        .then(res => res.json())
+        .then(json => output=json)
+        .catch(err => console.error(err)) 
+        res.json(output)
+        //get id of last task created
+        const allTasks = await axios.get('http://localhost:3000/api/task/')
+        const lastIndex = allTasks.data.data.length;
+        await Partner.findByIdAndUpdate(partner, { $push: { submitted_tasks: allTasks.data.data[lastIndex-1]._id +"" } }).exec()
+    }catch(error){
+        console.log("could not submit the task because ", error )
+    }
+})
+
+
 
 //contact admin through mail
 // router.get('/contact:name', async (req,res) => {
