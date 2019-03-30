@@ -138,5 +138,15 @@ router.post("/uploadTask/", async (req, res) => {
     res.json(j)
 });
 
+// Contact Consultancy
+router.get("/contactConsultancy/:id", async(req,res)=>{
+    const admin = await fetch(`${server}/api/consultancy/${req.params.id}`)
+    .then(res => res.json())
+    .catch(err => console.error(err))
+    const Email = consultancy.email
+    const phoneNumber = consultancy.phoneNumber 
+    res.json({data: {Email , phoneNumber}})
+})
+
 
 module.exports = router;
