@@ -261,3 +261,161 @@ test('Get certificate', async () => {
     const deleted = await funcs.deleteApplication(created.data.data['_id'])
     expect(deleted.status).toEqual(200)
   });
+
+  //setTaskAttributes
+test('Set Task Attributes', async () => {
+  body ={
+      "approved_by": "approvingPerson1",
+      "description": "description1",
+      "posted_on": "2014-02-03T22:00:00.000Z",
+      "posted_by": "postingPerson1",
+      "Estimated_effort": "Hard1",
+      "Time_taken": "Hours1",
+      "Level_of_commitment": "very1",
+      "Experience_level": "intermediate1",
+      "Monetary_compensation": 1337,
+      "Owner": "owner1",
+      "Assigned_Consultancy": "consultant1",
+      "reviewed": true
+      }
+  expect.assertions(1)
+  const task = await axios.post("http://localhost:3000/api/task",body)
+  const response =  await funcs.setTaskAttributes({"reviewed":"false"},task.data.data._id)
+  await axios.delete(`http://localhost:3000/api/task/${task.data.data._id}`)
+  expect(response.status).toEqual(200)
+},20000);
+
+//uploadTask
+test('Upload Task', async () => {
+  body ={
+      "approved_by": "approvingPerson2",
+      "description": "description2",
+      "posted_on": "2014-02-03T22:00:00.000Z",
+      "posted_by": "postingPerson2",
+      "Estimated_effort": "Hard2",
+      "Time_taken": "Hours2",
+      "Level_of_commitment": "very2",
+      "Experience_level": "intermediate2",
+      "Monetary_compensation": 1137,
+      "Owner": "owner2",
+      "Assigned_Consultancy": "consultant2",
+      "reviewed": false
+      }
+  expect.assertions(1)
+  const response =  await funcs.uploadTask(body)
+  expect(response.status).toEqual(200)
+  await axios.delete(`http://localhost:3000/api/task/${response.data.data._id}`)
+  
+},20000);
+
+//viewConsultancy
+test('viewConsultancy', async () => {
+  body ={
+          "name": "consultancy1",
+          "comRegNum": 1234,
+          "establishedSince": "1037-12-31T22:01:00.000Z",
+          "field": "engineering",
+          "description": "description",
+          "email": "jestmail@email.com",
+          "phoneNumber": "12345"
+  }
+  expect.assertions(1)
+  const consultancy = await axios.post("http://localhost:3000/api/consultancy",body)
+  const response =  await funcs.viewConsultancy(consultancy.data.data._id)
+  await axios.delete(`http://localhost:3000/api/consultancy/${consultancy.data.data._id}`)
+  expect(response.status).toEqual(200)
+},20000);
+
+//create task
+test('create a task', async () => {
+body ={
+    "approved_by": "approvingPerson1",
+    "description": "description1",
+    "posted_on": "2014-02-03T22:00:00.000Z",
+    "posted_by": "postingPerson1",
+    "Estimated_effort": "Hard1",
+    "Time_taken": "Hours1",
+    "Level_of_commitment": "very1",
+    "Experience_level": "intermediate1",
+    "Monetary_compensation": 1337,
+    "Owner": "owner1",
+    "Assigned_Consultancy": "consultant1",
+    "reviewed": true
+    }
+expect.assertions(1)
+//const task = await axios.post("http://localhost:3000/api/task",body)
+const response =  await funcs.createTask(body)
+await axios.delete(`http://localhost:3000/api/task/${response.data.data._id}`)
+expect(response.status).toEqual(200)
+},20000);
+
+//delete task
+test('delete a task', async () => {
+body ={
+    "approved_by": "approvingPerson1",
+    "description": "description1",
+    "posted_on": "2014-02-03T22:00:00.000Z",
+    "posted_by": "postingPerson1",
+    "Estimated_effort": "Hard1",
+    "Time_taken": "Hours1",
+    "Level_of_commitment": "very1",
+    "Experience_level": "intermediate1",
+    "Monetary_compensation": 1337,
+    "Owner": "owner1",
+    "Assigned_Consultancy": "consultant1",
+    "reviewed": true
+    }
+expect.assertions(1)
+const task = await axios.post("http://localhost:3000/api/task",body)
+const deletedTask = await funcs.deleteTask(task.data.data._id)
+expect(deletedTask.status).toEqual(200)
+},20000);
+
+//update task
+test('update a task', async () => {
+body ={
+    "approved_by": "approvingPerson1",
+    "description": "description1",
+    "posted_on": "2014-02-03T22:00:00.000Z",
+    "posted_by": "postingPerson1",
+    "Estimated_effort": "Hard1",
+    "Time_taken": "Hours1",
+    "Level_of_commitment": "very1",
+    "Experience_level": "intermediate1",
+    "Monetary_compensation": 1337,
+    "Owner": "owner1",
+    "Assigned_Consultancy": "consultant1",
+    "reviewed": true
+    }
+expect.assertions(1)
+const task = await axios.post("http://localhost:3000/api/task",body)
+// const updatedTask = await axios.put(`http://localhost:3000/api/task/${task.data.data._id}`,{"reviewed": false})
+const updatedTask = await funcs.updateTask(task.data.data._id,{"reviewed": false})
+await axios.delete(`http://localhost:3000/api/task/${task.data.data._id}`)
+expect(updatedTask.status).toEqual(200)
+},20000);
+
+
+//get task
+test('get a task', async () => {
+body ={
+    "approved_by": "approvingPerson1",
+    "description": "description1",
+    "posted_on": "2014-02-03T22:00:00.000Z",
+    "posted_by": "postingPerson1",
+    "Estimated_effort": "Hard1",
+    "Time_taken": "Hours1",
+    "Level_of_commitment": "very1",
+    "Experience_level": "intermediate1",
+    "Monetary_compensation": 1337,
+    "Owner": "owner1",
+    "Assigned_Consultancy": "consultant1",
+    "reviewed": true
+    }
+expect.assertions(1)
+const task = await axios.post("http://localhost:3000/api/task",body)
+//const getTask = await axios.put(`http://localhost:3000/api/task/${task.data.data._id}`)
+const getTask = await funcs.getTask(task.data.data._id)
+await axios.delete(`http://localhost:3000/api/task/${task.data.data._id}`)
+expect(getTask.status).toEqual(200)
+},20000);
