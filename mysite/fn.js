@@ -60,6 +60,47 @@ consultancyNegotiateWithAdmin: async (id) =>{
     const negotiate = await axios.get(`http://localhost:3000/api/consultancy/contactAdmin/${id}`)
     return negotiate
 }, 
+ 
+setTaskAttributes: async (body,id) => {
+    const task = await axios.put(`http://localhost:3000/api/admin/setAttributes/${id}`,body)
+    return task
+},
+
+
+uploadTask: async (body) => {
+    const task = await axios.post(`http://localhost:3000/api/admin/uploadTask/`,body)
+    return task
+},
+
+viewConsultancy: async (id) => {
+    const task = await axios.get(`http://localhost:3000/api/admin/viewConsultant/${id}`)
+    return task
+},
+
+updateTask: async (id,body) => {
+    const updatedTask = await axios.put(`http://localhost:3000/api/task/${id}`, body)
+    return updatedTask
+},
+
+getTask: async (id) => {
+const task = await axios.get(`http://localhost:3000/api/task/${id}`)
+return task
+},
+
+deleteTask: async (id) => {
+    const deletedTask = await axios.delete(`http://localhost:3000/api/task/${id}`)
+    return deletedTask
+},
+
+createTask: async (body) => {
+    const createTask = await axios.post(`http://localhost:3000/api/task/`, body)
+    return createTask
+},
+
+viewUserContactInfo: async (id) => {
+    const user = await axios.get(`http://localhost:3000/api/admin/viewUserContactInfo/${id}`)
+    return user
+}, 
 
 };
 module.exports = functions;
