@@ -60,47 +60,55 @@ consultancyNegotiateWithAdmin: async (id) =>{
     const negotiate = await axios.get(`http://localhost:3000/api/consultancy/contactAdmin/${id}`)
     return negotiate
 }, 
- 
-setTaskAttributes: async (body,id) => {
-    const task = await axios.put(`http://localhost:3000/api/admin/setAttributes/${id}`,body)
-    return task
+getApplication: async () => {
+    const certificates = await axios.get('http://localhost:3000/api/application')
+    return certificates
 },
 
-
-uploadTask: async (body) => {
-    const task = await axios.post(`http://localhost:3000/api/admin/uploadTask/`,body)
-    return task
+postApplication: async (body) => {
+    
+    const cer = await axios.post('http://localhost:3000/api/application',body)
+    return cer
+    
 },
 
-viewConsultancy: async (id) => {
-    const task = await axios.get(`http://localhost:3000/api/admin/viewConsultant/${id}`)
-    return task
+putApplication: async (body,id) => {
+    
+    const cer = await axios.put(`http://localhost:3000/api/application/${id}`,body)
+    return cer
+    
 },
 
-updateTask: async (id,body) => {
-    const updatedTask = await axios.put(`http://localhost:3000/api/task/${id}`, body)
-    return updatedTask
+deleteApplication: async (id) => {
+    
+    const cer = await axios.delete(`http://localhost:3000/api/application/${id}`)
+    return cer
+    
+},
+getNotification: async () => {
+    const certificates = await axios.get('http://localhost:3000/api/Notification')
+    return certificates
 },
 
-getTask: async (id) => {
-const task = await axios.get(`http://localhost:3000/api/task/${id}`)
-return task
+postNotification: async (body) => {
+    
+    const cer = await axios.post('http://localhost:3000/api/notification',body)
+    return cer
+    
 },
 
-deleteTask: async (id) => {
-    const deletedTask = await axios.delete(`http://localhost:3000/api/task/${id}`)
-    return deletedTask
+putNotification: async (body,id) => {
+    
+    const cer = await axios.put(`http://localhost:3000/api/notification/${id}`,body)
+    return cer
+    
 },
 
-createTask: async (body) => {
-    const createTask = await axios.post(`http://localhost:3000/api/task/`, body)
-    return createTask
+deleteNotification: async (id) => {
+    
+    const cer = await axios.delete(`http://localhost:3000/api/notification/${id}`)
+    return cer
+    
 },
-
-viewUserContactInfo: async (id) => {
-    const user = await axios.get(`http://localhost:3000/api/admin/viewUserContactInfo/${id}`)
-    return user
-}, 
-
 };
 module.exports = functions;
