@@ -161,7 +161,7 @@ test('Get certificate', async () => {
 
   test('Get Notification', async () => {
     expect.assertions(1)
-    const response =  await funcs.getNotificaion()
+    const response =  await funcs.getNotification()
     expect(response.status).toEqual(200)
   });
 
