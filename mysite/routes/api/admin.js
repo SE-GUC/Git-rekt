@@ -25,43 +25,6 @@ router.get("/contactConsultancy/:id", async(req,res)=>{
     res.json({data: {Email , phoneNumber}})
 })
 
-//set task attributes
-router.put("/setAttributes/:id", async (req, res) => {
-    var j
-    await fetch(`${server}/api/task/${req.params.id}`, {
-    method: "put",
-    body: JSON.stringify(req.body),
-    headers: { "Content-Type": "application/json" }
-  })
-    .then(res => res.json())
-    .then(json => j = json)
-    .catch(err => console.error(err))
-    res.json(j)
-});
-
-//view consultant
-router.get("/viewConsultant/:id", async(req,res)=>{
-    var j
-    await fetch(`${server}/api/consultancy/${req.params.id}`)
-    .then(res => res.json())
-    .then(json => j = json)
-    .catch(err => console.error(err))
-    res.json(j)
-})
-
-//upload tasks after negotiation step is over 
-router.post("/uploadTask/", async (req, res) => {
-    var j
-    await fetch(`${server}/api/task/`, {
-    method: "post",
-    body: JSON.stringify(req.body),
-    headers: { "Content-Type": "application/json" }
-  })
-    .then(res => res.json())
-    .then(json => j = json)
-    .catch(err => console.error(err))
-    res.json(j)
-});
 
 //view task description 
 router.get('/:AdminEmail/viewTaskDesc/:TaskId', async (req,res) =>{
@@ -93,6 +56,8 @@ router.put('/:consultancyId/assingConsultancy/:id',async(req,res) => {
     //task.applicant_list.pull(user)
     task.Assigned_Consultancy = consultancy
 })
+
+
 
 //get admin by ID
 router.get('/:id', async (req,res) => {

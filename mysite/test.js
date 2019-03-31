@@ -10,11 +10,11 @@ test('Get certificate', async () => {
 
   test('Post certificate', async () => {
     const body = {
-        "title":  "Test Certificate23",
-        "description": "sed for testin",
-        "prerequisites":  ["test"],
-        "issuedBy": "Ali",
-        "type": "Offline"
+        "title":  "Test Certificate (Ali)",
+        "description": "Test.jpeg",
+        "prerequisites":  ["testgl"],
+        "issuedBy": "Ali44",
+        "type": "Offline1"
     }
     expect.assertions(2)
     const created = await funcs.postCertificate(body)
@@ -26,14 +26,14 @@ test('Get certificate', async () => {
 
   test('Put certificate', async () => {
     const body = {
-        "title":  "Test Certificate23",
-        "description": "sed for testin",
-        "prerequisites":  ["test"],
-        "issuedBy": "Ali",
-        "type": "Offline"
+        "title":  "Test Certificate Ali",
+        "description": "zis tests",
+        "prerequisites":  ["test.png"],
+        "issuedBy": "Ali34",
+        "type": "Offline2"
     }
     const body2 = {
-        "type": "Online"
+        "type": "Online3"
     }
     const created = await funcs.postCertificate(body)
     expect.assertions(2)
@@ -45,11 +45,11 @@ test('Get certificate', async () => {
 
   test('Delete certificate', async () => {
     const body = {
-        "title":  "Test Certificate23",
-        "description": "sed for testin",
-        "prerequisites":  ["test"],
-        "issuedBy": "Ali",
-        "type": "Offline"
+        "title":  "Test certificate 38",
+        "description": "tests whatever",
+        "prerequisites":  ["test78"],
+        "issuedBy": "AliHarb",
+        "type": "Offline6"
     }
     const created = await funcs.postCertificate(body)
     expect.assertions(2)
@@ -66,9 +66,9 @@ test('Get certificate', async () => {
 
   test('Post certificate application', async () => {
     const body = {
-        "certificate": "Java",
-        "applicant": "Abdelrahman",
-        "status": "mesh approved"
+        "certificate": "Javalp",
+        "applicant": "Abdelrahmanrf",
+        "status": "mesh approved awi ya3ni"
     }
     expect.assertions(2)
     const created = await funcs.postCertificateApplication(body)
@@ -81,12 +81,12 @@ test('Get certificate', async () => {
 
   test('Put certificate application', async () => {
     const body = {
-        "certificate": "Java",
-        "applicant": "Abdelrahman",
-        "status": "mesh approved"
+        "certificate": "Java2387",
+        "applicant": "Abdelrahman617",
+        "status": "mesh approved 5ales ba2a"
     }
     const body2 = {
-        "status": "approved"
+        "status": "approved55"
     }
     const created = await funcs.postCertificateApplication(body)
     expect.assertions(2)
@@ -99,9 +99,9 @@ test('Get certificate', async () => {
 
   test('Delete certificate applications', async () => {
     const body = {
-        "certificate": "Python",
-        "applicant": "Mohamed",
-        "status": "mesh approved awi ya3ni"
+        "certificate": "Pythonefw",
+        "applicant": "Mohamedein",
+        "status": "mesh approved awi y3ni"
     }
     const created = await funcs.postCertificateApplication(body)
     expect.assertions(2)
@@ -112,25 +112,25 @@ test('Get certificate', async () => {
 
   test('Undergo Evaluation Process', async () => {
     const body = {
-        "name": "Betengan",
-        "age": 21,
-        "email": "test@test.com",
-        "password": "betengan bardo",
-        "githubPortofolio": ["Array of strings"],
-        "contactInfo": 7775000,
-        "updatedCV": ["Whatever"],
-        "registeredOn": 70,
+        "name": "Betengana",
+        "age": 22,
+        "email": "test@test.com.comtani",
+        "password": "betengana bardo",
+        "githubPortofolio": ["Array of stringz"],
+        "contactInfo": 7775002,
+        "updatedCV": ["Whateverr"],
+        "registeredOn": 71,
         "signed": false,
-        "rating": 20,
-        "notifications": ["w malo"],
-        "certifications": ["gagwa"]
+        "rating": 22,
+        "notifications": ["w maloh"],
+        "certifications": ["gagwag"]
     }
     const body2 = {
-        "title":  "certificate",
-        "description": "s...",
-        "prerequisites":  ["test"],
-        "issuedBy": "Ali",
-        "type": "Online"
+        "title":  "certificatesz",
+        "description": "s...it",
+        "prerequisites":  ["testlk"],
+        "issuedBy": "Alivfds",
+        "type": "Online7"
     }
     expect.assertions(1)
     const user = await axios.post(`http://localhost:3000/api/user`,body)
@@ -145,15 +145,16 @@ test('Get certificate', async () => {
 
   test('Consultancy negotiate with admin', async () => {
     const body = {
-            "name": "Yeffsffwefewefdsa23",
-            "email": "few.cqwrfewfewfgsesgfofewfwm",
-            "password": "haryfwffawsfewasfdsmofsaf4ter",
-            "uploaded_tasks": ["sfessafqfwsfaa42n2"],
-            "notifications": ["wfsfwfsqaaefwqver"]
+            "name": "Yeffsffwefewefdsa23sd",
+            "email": "few.cqwrfewfewfgsesgfofffewfwm",
+            "password": "haryfwffawsfewasffdsmofsaff4ter",
+            "uploaded_tasks": ["sfessafqffwsfaa42n2"],
+            "notifications": ["wfsfwfsqfaaefwqver"]
     }
     expect.assertions(1)
     const admin = await axios.post(`http://localhost:3000/api/admin`,body)
     const created = await funcs.consultancyNegotiateWithAdmin(admin.data.data._id)
     expect(created.status).toEqual(200)
     await axios.delete(`http://localhost:3000/api/admin/${admin.data.data._id}`)
-  });
+
+  },15000);

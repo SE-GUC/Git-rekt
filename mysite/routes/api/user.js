@@ -6,7 +6,7 @@ const fetch = require("node-fetch")
 const server = require("../../config/config")
 const Certificate = require("../../models/Certificate")
 
-//Post in a Books-method
+//Post in a user-method
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
@@ -50,6 +50,13 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 
+  //search for specific user
+router.get('/:id', async (req, res) => {
+    const userId = req.params.id
+    const foundUser = await User.findById(userId);
+    res.json(foundUser);
+});
+
 router.get('/', async (req,res) => {
     const users = await User.find()
     res.json({data: users})
@@ -90,5 +97,6 @@ router.post("/:userID/applyCertificate/:certificateID", async (req, res) => {
     .catch(err => console.error(err))
     res.json(j)
 });
+
 
 module.exports = router

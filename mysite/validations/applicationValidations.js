@@ -6,7 +6,7 @@ module.exports = {
         const createSchema = {
             user: Joi.string().min(1).max(32).required(),
             task: Joi.string().min(1).max(32).required(),
-            
+            date: Joi.date()
         }
         return Joi.validate(request, createSchema)
     },

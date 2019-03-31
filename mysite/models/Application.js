@@ -14,7 +14,7 @@ const ApplicationSchema = new Schema(
     },
     date:{//date of creation
         type: Date,
-        default: Date.now()
+        //default: Date.now()
     }
 })
 

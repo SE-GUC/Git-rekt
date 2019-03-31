@@ -11,7 +11,7 @@ router.get('/', async (req,res) => {
     res.json({data: certificates})
 })
 
- //search for specific certificate
+//search for specific certificate
  router.get('/:id', async (req,res) => {
     const certificateId = req.params.id
     const certificate = await Certificate.findById(certificateId);
