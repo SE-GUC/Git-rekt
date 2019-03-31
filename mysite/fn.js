@@ -135,6 +135,15 @@ contactConsultancy: async (id) => {
        const contactConsultancy = await axios.get(`http://localhost:3000/api/admin/contactConsultancy/${id}`)
        return contactConsultancy
 },
+    viewUserContactInfo: async (id) => {
+    const user = await axios.get(`http://localhost:3000/api/admin/viewUserContactInfo/${id}`)
+    return user
+},
+
+viewUser: async (id) => {
+    const user = await axios.get(`http://localhost:3000/api/admin/viewUser/${id}`)
+    return user
+}
     
 };
 module.exports = functions;
