@@ -109,4 +109,43 @@ router.delete('/:id', async (req,res) => {
     }
  })
 
+//set task attributes
+router.put("/setAttributes/:id", async (req, res) => {
+    var j
+    await fetch(`${server}/api/task/${req.params.id}`, {
+    method: "put",
+    body: JSON.stringify(req.body),
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+    res.json(j)
+});
+
+//view consultant
+router.get("/viewConsultant/:id", async(req,res)=>{
+    var j
+    await fetch(`${server}/api/consultancy/${req.params.id}`)
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+    res.json(j)
+})
+
+//upload tasks after negotiation step is over 
+router.post("/uploadTask/", async (req, res) => {
+    var j
+    await fetch(`${server}/api/task/`, {
+    method: "post",
+    body: JSON.stringify(req.body),
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+    res.json(j)
+});
+
+
 module.exports = router
