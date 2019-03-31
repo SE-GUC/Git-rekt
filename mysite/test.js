@@ -419,3 +419,50 @@ const getTask = await funcs.getTask(task.data.data._id)
 await axios.delete(`http://localhost:3000/api/task/${task.data.data._id}`)
 expect(getTask.status).toEqual(200)
 },20000);
+
+//get user's contact info
+test('get a user contact info', async () => {
+  body ={
+    "name": "personsname",
+    "age": 19,
+    "email": "test@test.com",
+    "password": "testpassword",
+    "githubPortofolio": ["test1","test2"],
+    "contactInfo" : 1234,
+    "updatedCV": ["test1","test2"],
+    "registeredOn": 1234,
+    "signed": false,
+    "rating": 5,
+    "notifications": ["test1","test2"],
+    "certifications": ["test1","test2"]
+        }
+  expect.assertions(1)
+  const user = await axios.post("http://localhost:3000/api/user",body)
+  const getUser = await funcs.viewUserContactInfo(user.data.data._id)
+  await axios.delete(`http://localhost:3000/api/task/${user.data.data._id}`)
+  expect(getUser.status).toEqual(200)
+},20000);
+
+
+//get user's profile
+test('get a user profile', async () => {
+  body ={
+    "name": "personsname",
+    "age": 19,
+    "email": "test@test.com",
+    "password": "testpassword",
+    "githubPortofolio": ["test1","test2"],
+    "contactInfo" : 1234,
+    "updatedCV": ["test1","test2"],
+    "registeredOn": 1234,
+    "signed": false,
+    "rating": 5,
+    "notifications": ["test1","test2"],
+    "certifications": ["test1","test2"]
+        }
+  expect.assertions(1)
+  const user = await axios.post("http://localhost:3000/api/user",body)
+  const getUser = await funcs.viewUser(user.data.data._id)
+  await axios.delete(`http://localhost:3000/api/user/${user.data.data._id}`)
+  expect(getUser.status).toEqual(200)
+},20000);
