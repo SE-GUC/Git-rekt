@@ -61,53 +61,53 @@ consultancyNegotiateWithAdmin: async (id) =>{
     return negotiate
 }, 
 getApplication: async () => {
-    const certificates = await axios.get('http://localhost:3000/api/application')
-    return certificates
+    const app = await axios.get('http://localhost:3000/api/application')
+    return app
 },
 
 postApplication: async (body) => {
     
-    const cer = await axios.post('http://localhost:3000/api/application',body)
-    return cer
+    const app = await axios.post('http://localhost:3000/api/application',body)
+    return app
     
 },
 
 putApplication: async (body,id) => {
     
-    const cer = await axios.put(`http://localhost:3000/api/application/${id}`,body)
-    return cer
+    const app = await axios.put(`http://localhost:3000/api/application/${id}`,body)
+    return app
     
 },
 
 deleteApplication: async (id) => {
     
-    const cer = await axios.delete(`http://localhost:3000/api/application/${id}`)
-    return cer
+    const app = await axios.delete(`http://localhost:3000/api/application/${id}`)
+    return app
     
 },
 getNotification: async () => {
-    const certificates = await axios.get('http://localhost:3000/api/Notification')
-    return certificates
+    const not = await axios.get('http://localhost:3000/api/notification')
+    return not
 },
 
 postNotification: async (body) => {
     
-    const cer = await axios.post('http://localhost:3000/api/notification',body)
-    return cer
+    const not = await axios.post('http://localhost:3000/api/notification',body)
+    return not
     
 },
 
 putNotification: async (body,id) => {
     
-    const cer = await axios.put(`http://localhost:3000/api/notification/${id}`,body)
-    return cer
+    const not = await axios.put(`http://localhost:3000/api/notification/${id}`,body)
+    return not
     
 },
 
 deleteNotification: async (id) => {
     
-    const cer = await axios.delete(`http://localhost:3000/api/notification/${id}`)
-    return cer
+    const not = await axios.delete(`http://localhost:3000/api/notification/${id}`)
+    return not
     
 },
     
