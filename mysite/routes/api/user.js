@@ -99,4 +99,72 @@ router.post("/:userID/applyCertificate/:certificateID", async (req, res) => {
 });
 
 
+//get certificate reccomendations
+router.get('/getCertificateRecommendations', async (req,res) => {
+    var i;
+    var j;
+    var k;
+    var TaskArr;
+    var reqSetOfSkills;
+    var cerName;
+    var Count;
+    var cCountsArr = [{cerName:String,Count:Number}];
+    var index;
+    var tuple;
+    var c;
+    var reccomendations = [String];
+ 
+     //const tasksapi = 'http://localhost:3000/api/task'
+     //await fetch(tasksapi + '/', {
+       //  method : 'get',
+        // headers : {'Content-Type' : 'application/json'} 
+    // })
+     //.then(res => res.json)
+     //.then(json => TaskArr = json)
+     //.catch(err => console.error(err))
+ 
+     //const tasks = await Task.find()
+     //TaskArr = tasks;
+ 
+ 
+     const Task = await
+         fetch(`${server}/api/task/`)
+             .then(res => res.json())
+             .then(json => TaskArr = json)
+             .catch(err => console.error(err))
+ 
+     //Getting task array
+     for (i = 0; i < TaskArr.length; i++) {
+       //Getting the required set of skills for each task
+         reqSetOfSkills = TaskArr[i].Required_set_of_skills
+       for (j = 0; j < reqSetOfSkills.length; j++) {
+         //Checking if that skill is already in the cCounts array
+         if (cCountsArr.find(cerName == reqSetOfSkills[j]) !== null) {
+           index = cCountsArr.findIndex(cerName == reqSetOfSkills[j]);
+           tuple = cCountsArr[i];
+           c = tuple.Count;
+           c = c + 1;
+           cCountsArr[i] = { cerName: tuple.cerName, Count: c };
+         } else {
+           cCountsArr.push({ cerName: reqSetOfSkills[j], Count: 1 });
+         }
+       }
+     }
+     //for (k = 0; k < cCountsArr.length; k++){
+ 
+     //}
+     cCountsArr.sort(function (first, second) {
+ 
+         if (first.Count > second.Count) return -1;
+         if (first.Count < second.Count) return 1;
+ 
+     });
+ 
+     reccomendations[0] = cCountsArr[0];
+     reccomendations[1] = cCountsArr[1];
+     reccomendations[2] = cCountsArr[2];
+     res.json({ data: reccomendations });
+ });
+
+
 module.exports = router
