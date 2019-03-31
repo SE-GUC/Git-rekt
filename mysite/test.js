@@ -158,3 +158,106 @@ test('Get certificate', async () => {
     await axios.delete(`http://localhost:3000/api/admin/${admin.data.data._id}`)
 
   },15000);
+
+  test('Get Notification', async () => {
+    expect.assertions(1)
+    const response =  await funcs.getNotificaion()
+    expect(response.status).toEqual(200)
+  });
+
+  test('Post Notification', async () => {
+    const body = {
+      "sent_to": "yallatestkoko",
+      "notifies": "kokoTestyalla",
+      "sent_from": "yallakokoMaten7sh",
+      "time": 300
+    }
+    expect.assertions(2)
+    const created = await funcs.postNotification(body)
+    expect(created.status).toEqual(200)
+    const not = await axios.get(`http://localhost:3000/api/notification/${created.data.data._id}`) 
+    expect(not.data).toMatchObject(body)
+    await axios.delete(`http://localhost:3000/api/notification/${created.data.data._id}`)
+  });
+
+  test('Put Notification', async () => {
+    const body = {
+      "sent_to": "yallatestkoko",
+      "notifies": "kokoTestyalla",
+      "sent_from": "yallakokoMaten7sh",
+      "time": 300
+    }
+    const body2 = {
+        "time": 400
+    }
+    const created = await funcs.postNotification(body)
+    expect.assertions(2)
+    expect(created.status).toEqual(200)
+    const updated = await funcs.putNotification(body2,created.data.data['_id'])
+    expect(updated.status).toEqual(200)
+    await axios.delete(`http://localhost:3000/api/notification/${created.data.data._id}`)
+  });
+
+  test('Delete notifcation', async () => {
+    const body = {
+      "sent_to": "yallatestkoko",
+      "notifies": "kokoTestyalla",
+      "sent_from": "yallakokoMaten7sh",
+      "time": 300
+    }
+    const created = await funcs.postNotification(body)
+    expect.assertions(2)
+    expect(created.status).toEqual(200)
+    const deleted = await funcs.deleteNotification(created.data.data['_id'])
+    expect(deleted.status).toEqual(200)
+  });
+
+  test('Get Application', async () => {
+    expect.assertions(1)
+    const response =  await funcs.getApplication()
+    expect(response.status).toEqual(200)
+  });
+
+  test('Post Application', async () => {
+    const body = {
+    "user": "Someone",
+    "task": "Balabizo",
+    "date": "2018-02-28T22:00:00.000Z"
+    }
+    expect.assertions(2)
+    const created = await funcs.postApplication(body)
+    expect(created.status).toEqual(200)
+    const not = await axios.get(`http://localhost:3000/api/application/${created.data.data._id}`) 
+    expect(not.data).toMatchObject(body)
+    await axios.delete(`http://localhost:3000/api/application/${created.data.data._id}`)
+  });
+
+  test('Put Application', async () => {
+    const body = {
+      "user": "Someone",
+      "task": "Balabizo",
+      "date": "2018-02-28T22:00:00.000Z"
+      }
+    const body2 = {
+        "user": "Someone else"
+    }
+    const created = await funcs.postApplication(body)
+    expect.assertions(2)
+    expect(created.status).toEqual(200)
+    const updated = await funcs.putApplication(body2,created.data.data['_id'])
+    expect(updated.status).toEqual(200)
+    await axios.delete(`http://localhost:3000/api/application/${created.data.data._id}`)
+  });
+
+  test('Delete Application', async () => {
+    const body = {
+      "user": "Someone",
+      "task": "Balabizo",
+      "date": "2018-02-28T22:00:00.000Z"
+    }
+    const created = await funcs.postApplication(body)
+    expect.assertions(2)
+    expect(created.status).toEqual(200)
+    const deleted = await funcs.deleteApplication(created.data.data['_id'])
+    expect(deleted.status).toEqual(200)
+  });
