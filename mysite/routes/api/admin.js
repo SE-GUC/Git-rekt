@@ -147,5 +147,66 @@ router.post("/uploadTask/", async (req, res) => {
     res.json(j)
 });
 
+//view user's contact info
+router.get("/viewUserContactInfo/:id", async (req, res) => {
+    var j
+    var name
+    var contactInfo
+    const user = await fetch(`${server}/api/user/${req.params.id}`)
+      .then(res => res.json())
+      .then(json => j = json)
+      .catch(err => console.error(err))
+    name = user.name
+    contactInfo = user.contactInfo  
+    res.json({data: {name,contactInfo}})
+  })
+  
+
+//view user profile
+router.get("/viewUser/:id", async (req, res) => {
+  var j
+  var name
+  var age
+  var email
+  var githubPortofolio
+  var contactInfo
+  var updatedCV
+  var registeredOn
+  var signed
+  var rating
+  var certifications
+  const user = await fetch(`${server}/api/user/${req.params.id}`)
+    .then(res => res.json())
+    .then(json => j = json)
+    .catch(err => console.error(err))
+
+    name = user.name
+    age = user.age
+    email = user.email
+    githubPortofolio = user.githubPortofolio
+    contactInfo = user.contactInfo
+    updatedCV = user.updatedCV
+    registeredOn = user.registeredOn
+    signed = user.signed
+    rating = user.rating
+    certifications = user.certifications
+  res.json({
+    data: {
+      name,
+      age,
+      email,
+      githubPortofolio,
+      contactInfo,
+      updatedCV,
+      registeredOn,
+      signed,
+      rating,
+      certifications
+    }
+  });
+});
+
+
+
 
 module.exports = router
