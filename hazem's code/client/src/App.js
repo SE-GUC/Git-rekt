@@ -3,9 +3,6 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 import TaskAttribute from './components/TaskAttribute';
 import UserNotifications from './components/UserNotifications';
 
-
-
-
 class App extends React.Component{
    
     render(){
