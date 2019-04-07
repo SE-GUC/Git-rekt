@@ -46,7 +46,7 @@ app.use('/api/certificateApplication', certificateApplication)
 
 app.use((req,res) => res.status(404).send(`<h1>Can not find what you're looking for</h1>`))
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server on ${port}`))
 
 //mongoose.connection.dropDatabase()
