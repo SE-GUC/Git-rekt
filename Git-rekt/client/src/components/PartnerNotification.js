@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.css';
+//import './App.css';
 const id = '5ca1321efe15fd09f00ef452'; //test for now
 
 class App extends Component {

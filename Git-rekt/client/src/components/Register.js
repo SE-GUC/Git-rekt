@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+//import "./App.css";
 import axios from "axios";
 import logo from "./icon.png"; // Tell Webpack this JS file uses this image
 
