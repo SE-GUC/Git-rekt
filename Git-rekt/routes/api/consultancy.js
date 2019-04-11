@@ -76,6 +76,7 @@ router.put('/:id',async (req,res) => {
     }
 })
 
+//User stories
 // Search for a certain consultancy mongooDB
 router.get('/:name', async (req,res) => {
     try {

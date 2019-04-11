@@ -17,7 +17,6 @@ const validator = require('../../validations/partnerValidations')
 //     return res.json({ data: Partner });
 // })
 
-//create new partner
 //show all partners
 router.get('/', async (req,res) => {
     const partners = await Partner.find()
@@ -37,6 +36,7 @@ router.get('/:id', async (req,res) =>{
     }
 })
 
+//create new partner
 router.post('/', async (req,res) => {
     try {
         const isValidated = validator.createValidation(req.body)
