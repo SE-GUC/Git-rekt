@@ -4,7 +4,7 @@ module.exports = {
     createValidation: request => {
         const createSchema = {
             name: Joi.string().min(1).max(30).required(),
-            comRegNum: Joi.number().min(8).required(),
+            comRegNum: Joi.number().min(1).required(),
             establishedSince : Joi.date().required(),
             field: Joi.string().min(3).max(200).required(),
             description: Joi.string().min(3).max(100).required(),
@@ -19,7 +19,7 @@ module.exports = {
     updateValidation: request => {
         const updateSchema = {
             name: Joi.string().min(1).max(30),
-            comRegNum: Joi.number().min(8),
+            comRegNum: Joi.number().min(1),
             establishedSince : Joi.date(),
             field: Joi.string().min(3).max(200),
             description: Joi.string().min(3).max(100),

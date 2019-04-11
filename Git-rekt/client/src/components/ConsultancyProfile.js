@@ -52,13 +52,13 @@ class ConsultancyProfile extends Component {
       return (
         <div>
           <p>
-          {name ? name + " " : "nothing here "}
-          {comRegNum ? comRegNum + " " : "nothing here "} 
-          {establishedsince ? establishedsince + " " : "nothing here " }
-          {field ? field + " " : "nothing here "} 
-          {description ? description + " " : "nothing here "} 
-          {email ? email + " " : "nothing here "}
-          {phoneNumber ? phoneNumber + " " : "nothing here "}  
+          {name ? "Name: " + name + " " : "nothing here "}
+          {comRegNum ? "comRegNum: " + comRegNum + " " : "nothing here "} 
+          {establishedsince ? "establishedSince: " + establishedsince + " " : "nothing here " }
+          {field ? "field: " + field + " " : "nothing here "} 
+          {description ? "description: " + description + " " : "nothing here "} 
+          {email ? "email: " + email + " " : "nothing here "}
+          {phoneNumber ? "phonenumber: " + phoneNumber + " " : "nothing here "}  
           </p>
         </div>
       );
