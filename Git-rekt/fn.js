@@ -191,13 +191,13 @@ const functions = {
     },
 
     //set a task's attributes
-    setTaskAttributes: async (id) => {
-        const user = await axios.put(`http://localhost:3001/api/admin/setAttributes/${id}`)
+    setTaskAttributes: async (body, id) => {
+        const user = await axios.put(`http://localhost:3001/api/admin/setAttributes/${id}`, body)
         return user
     },
 
     //admin contacts a partner
-    contactPartner: async (id) => {
+    contactPartner: async (taskId, id) => {
         const partnerContactInfo = await axios.get(`http://localhost:3001/api/admin/${taskId}/contactPartner/${id}`)
         return partnerContactInfo
     },

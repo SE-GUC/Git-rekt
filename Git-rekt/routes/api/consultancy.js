@@ -39,7 +39,7 @@ router.post('/', async (req,res) => {
 router.get('/:id', async (req,res) => {
     const consultancyId = req.params.id
     const consultancy = await Consultancy.findById(consultancyId);
-    res.json(consultancy);
+    res.json({data:consultancy});
 });
 
 
@@ -58,17 +58,17 @@ router.delete('/:id', async (req,res) => {
 //update consultancy 
 router.put('/:id',async (req,res) => {
     try{
-        const isValid = adminValidator.updateValidation(req.body)
+        const isValid = consultancyValidator.updateValidation(req.body)
         if(isValid.error){ 
             return res.status(400).send({error: isValid.error.details[0].message})
         }
         const consultancyId = req.params.id
-        const updatedConsultancy = await Consultancy.findById(consultancyId)
-        if(!updatedConsultancy) {
+        const toBeConsultancy = await Consultancy.findById(consultancyId)
+        if(!toBeConsultancy) {
             return res.status(404).send({error: 'Consultancy does not exist'})
         }
-        const updateAdmin = await Consultancy.updateOne(req.body)
-        return res.json({msg:'Admin updated successfully', data: updateAdmin})
+        const updatedConsultancy = await Consultancy.updateOne(req.body)
+        return res.json({msg:'Consultancy updated successfully'})
     }
     catch(error){
         //We will handle error later

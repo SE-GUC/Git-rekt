@@ -59,7 +59,7 @@ router.put('/updateAdmin/:id',async (req,res) => {
             return res.status(404).send({error: 'Admin does not exist'})
         }
         const updateAdmin = await Admin.updateOne(req.body)
-        return res.json({msg:'Admin updated successfully', data: updateAdmin})
+        return res.json({msg:'Admin updated successfully'})
     }
     catch(error){
         //We will handle error later
@@ -154,7 +154,7 @@ router.get("/:taskId/contactPartner/:id", async(req,res)=>{
             "notifications" : partnerNots
         } 
         
-        await fetch(`${server}/api/partner//${owningPartnerId}`, {
+        await fetch(`${server}/api/partner/${owningPartnerId}`, {
             method : 'put',
             body : JSON.stringify(newNots),
             headers : {'Content-Type' : 'application/json'}

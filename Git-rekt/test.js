@@ -32,9 +32,9 @@ test(`post partner` , async () => {
  expect.assertions(2)
  const post = await funcs.createPartner(body)
  expect(post.status).toEqual(200)
- const cer = await axios.get(`http://localhost:3000/api/partner/${post.data.data['_id']}`) 
- expect(cer.data).toMatchObject(body)
- await axios.delete(`http://localhost:3000/api/partner/${post.data.data['_id']}`)
+ const cer = await axios.get(`http://localhost:3001/api/partner/${post.data.data['_id']}`) 
+ expect(cer.data.data.submitted_tasks).toMatchObject(body.submitted_tasks)
+ await axios.delete(`http://localhost:3001/api/partner/${post.data.data['_id']}`)
 });
 
 //update a partner by id
@@ -63,7 +63,8 @@ test(`put partner` , async () => {
   expect.assertions(2)
   expect(created.status).toEqual(200)
   const updated = await funcs.updatePartner(body2,created.data.data['_id'])
-  expect(updated.status).toEqual(200)
+  const updatedPartner = await funcs.getPartner(created.data.data['_id'])
+  expect(updatedPartner.data.data.com_reg_num).toEqual(body2.com_reg_num)
   await axios.delete(`http://localhost:3001/api/partner/${created.data.data['_id']}`)
 });
 
@@ -431,7 +432,7 @@ test(`post Consultancy` , async () => {
   const post = await funcs.createConsultancy(body)
   expect(post.status).toEqual(200)
   const cer = await axios.get(`http://localhost:3001/api/consultancy/${post.data.data['_id']}`) 
-  expect(cer.data.name).toEqual(body.name)
+  expect(cer.data.data.name).toEqual(body.name)
   await axios.delete(`http://localhost:3001/api/consultancy/${post.data.data['_id']}`)
 });
 
@@ -454,7 +455,8 @@ test(`put Consultancy` , async () => {
   expect.assertions(2)
   expect(post.status).toEqual(200)
   const updated = await funcs.updateConsultancy(body2, post.data.data['_id'])
-  expect(updated.status).toEqual(200)
+  const updatedConsultancy = await funcs.getConsultancy(post.data.data['_id'])
+  expect(updatedConsultancy.data.data.phoneNumber).toEqual(body2.phoneNumber)
   await axios.delete(`http://localhost:3001/api/consultancy/${post.data.data['_id']}`)
 });
 
@@ -543,7 +545,7 @@ test('get a user contact info', async () => {
   await axios.delete(`http://localhost:3001/api/user/${user.data.data['_id']}`)
 });
 
-//get user's profile
+// //get user's profile
 test('get a user profile', async () => {
   body ={
     "name": "personsname",
@@ -566,7 +568,7 @@ test('get a user profile', async () => {
   await axios.delete(`http://localhost:3001/api/user/${user.data.data['_id']}`)
 });
 
-//Admin Contacts Consultancy Test
+// //Admin Contacts Consultancy Test
 test(`Admin Contacts Consultancy` , async () => {
   const body = {
     "name": "ConsultH",
@@ -577,7 +579,7 @@ test(`Admin Contacts Consultancy` , async () => {
     "email":"thismmmmmhemailnnhn@hotmail.com",
     "phoneNumber": "19324234324"
   }
-  expect.assertions(0)
+  expect.assertions(1)
   const consultancy = await axios.post(`http://localhost:3001/api/consultancy`, body)
   const created = await funcs.contactConsultancy(consultancy.data.data['_id'])
   expect(created.status).toEqual(200)
@@ -585,9 +587,63 @@ test(`Admin Contacts Consultancy` , async () => {
 });
 
 //contact a partner
+test(`contact a partner`, async () => {
+  const adminContact = {
+    "name" : "sbeveeeee",
+    "email" : "testadmin@test.com",
+    "password" : "testPssowrd",
+    "uploaded_tasks" : ["gameTask"],
+    "notifications" : ["review task"]
+  }
+  const createdAdmin = await axios.post(`http://localhost:3001/api/admin`, adminContact)
+  const partnerContact = {
+    "name" : "leonard",
+    "password" : "adsvaefeafdv",
+    "email" : "sheldon@gmail.com" ,
+    "contact_info" : "384563546131643213548",
+    "registered_on" : "2014-02-03T22:00:00.000Z",
+    "com_reg_num" : 102,
+    "info" : "studnet",
+    "signed" : "false",
+    "rating" : 4.2,
+    "submitted_tasks" : ["gametask"],
+    "notifications" : ["finsih sprint 3"],
+    "associates" : ["lamei"],
+    "board_members" : ["yasmeen"],
+    "events" : ["jam session"],
+    "feedback" : "satisfied"
+  }
+  const createdPartner = await funcs.createPartner(partnerContact)
+  const task = {
+    "approved_by": "simpleton",
+    "description": "particle accelerator",
+    "posted_on": "2014-02-03T22:00:00.000Z",
+    "posted_by": `${createdPartner.data.data['_id']}`,
+    "Estimated_effort": "Hard1",
+    "Time_taken": "Hours1",
+    "Level_of_commitment": "very1",
+    "Experience_level": "intermediate1",
+    "Monetary_compensation": 1337,
+    "Owner": `${createdPartner.data.data['_id']}`,
+    "Assigned_Consultancy": "consultant1",
+    "reviewed": true
+  }
+  const createdTask = await funcs.createTask(task)
+  expect.assertions(2)
+  const contactInfo = await funcs.contactPartner(createdTask.data.data['_id'], createdAdmin.data.data['_id'])
+  const compareInfo = {
+    "email" : createdPartner.data.data.email,
+    "contact_info" : createdPartner.data.data.contact_info 
+  }
+  expect(contactInfo.status).toEqual(200)
+  expect(contactInfo.data.data).toMatchObject(compareInfo)
+  await axios.delete(`http://localhost:3001/api/task/${createdTask.data.data['_id']}`)
+  await axios.delete(`http://localhost:3001/api/admin/${createdAdmin.data.data['_id']}`)
+  await axios.delete(`http://localhost:3001/api/partner/${createdPartner.data.data['_id']}`)
+})
 
-//User 
-//evaluated by an admin
+// //User 
+// //evaluated by an admin
 test('Undergo Evaluation Process', async () => {
   const body = {
     "name": "Betengana",
@@ -610,10 +666,10 @@ test('Undergo Evaluation Process', async () => {
     "issuedBy": "Alivfds",
     "type": "Online7"
   }
-  expect.assertions(0)
+  expect.assertions(1)
   const user = await axios.post(`http://localhost:3001/api/user`,body)
   const certificate = await axios.post(`http://localhost:3001/api/certificate`,body2)  
-  const created = await funcs.applyForCertificate(user.data.data._id,certificate.data.data['_id'])
+  const created = await funcs.applyForCertificate(user.data.data['_id'],certificate.data.data['_id'])
   expect(created.status).toEqual(200)
   await axios.delete(`http://localhost:3001/api/user/${user.data.data['_id']}`)
   await axios.delete(`http://localhost:3001/api/certificate/${certificate.data.data['_id']}`)

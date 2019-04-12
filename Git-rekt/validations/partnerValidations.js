@@ -31,7 +31,7 @@ module.exports = {
             email: Joi.string().min(15).max(50),
             contact_info: Joi.string().min(5).max(50),
             registered_on: Joi.date(),
-            com_reg_num: Joi.number.min(1).max(500),
+            com_reg_num: Joi.number().min(1).max(500),
             info: Joi.string().min(3).max(500),
             signed: Joi.boolean(),
             rating: Joi.number().min(0).max(500),

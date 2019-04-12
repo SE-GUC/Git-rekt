@@ -3,6 +3,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
+const server = require("../../config/config")
 // const app = express()
 // app.use(express.json())
 
@@ -10,6 +11,7 @@ const Partner = require('../../models/Partner')
 //const Admin = require('../../models/Admin')
 const validator = require('../../validations/partnerValidations')
 
+const tasks = `${server}/api/task`
 // //main page
 // router.get('/',(req,res) => {
 //     res.send(`<h1>helloooo partnerrrrr wink wink</h1>`)
@@ -96,7 +98,7 @@ router.post('/submitTask/:id', async (req, res) => {
         .catch(err => console.error(err)) 
         res.json(output)
         //get id of last task created
-        const allTasks = await axios.get('http://localhost:3000/api/task/')
+        const allTasks = await axios.get(`${server}/api/task`)
         const lastIndex = allTasks.data.data.length;
         await Partner.findByIdAndUpdate(partner, { $push: { submitted_tasks: allTasks.data.data[lastIndex-1]._id +"" } }).exec()
     }catch(error){
