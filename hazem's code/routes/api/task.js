@@ -61,12 +61,27 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+
  //search for specific task
  router.get('/:id', async (req,res) => {
      const taskId = req.params.id
      const foundTask = await Task.findById(taskId);
      res.json(foundTask);
  });
+ 
+ //search for specific task by name
+ router.get('/GetTaskByDescription/:description', async (req,res) => {
+  const taskName = req.params.description
+  try{
+  const foundTask = await Task.find({description:taskName});
+  res.json(foundTask);
+}
+catch(error){
+  console.log(error)
+}
+ 
+});
+
 
 
 //search for all tasks

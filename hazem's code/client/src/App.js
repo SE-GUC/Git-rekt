@@ -1,21 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
 import TaskAttribute from './components/TaskAttribute';
 import UserNotifications from './components/UserNotifications';
+import ApprovingTasks from './components/ApprovingTasks';
 
-class App extends React.Component{
+
+export default class App extends React.Component{
+    
+  
    
-    render(){
-        return(
+   render() {
+    return (
         <Router>
-        <div>
-            
-          <Route path='/TaskInfo' exact component={TaskAttribute} />
-          <Route path='/YourNotifications' exact component={UserNotifications} />
-          
-        </div>
-        </Router>
-        )
-    }
+            <div className="App">
+             <Route exact path = '/TaskInfo' component = {TaskAttribute}/>
+             <Route exact path = '/YourNotifications' component = {UserNotifications}/>
+             <Route exact path = '/AdminApprovesTask' component = {ApprovingTasks}/>
+            </div>
+          </Router>
+         
+        
+    );
+  }
 }
-export default App
+
+

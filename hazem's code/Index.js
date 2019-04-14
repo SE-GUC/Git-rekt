@@ -1,7 +1,7 @@
 
 const express = require('express')
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 
 // Require Router Handlers
 const tasks = require('./routes/api/task')
@@ -13,7 +13,6 @@ const applications = require('./routes/api/application')
 const consultancy = require('./routes/api/consultancy')
 const admin = require('./routes/api/admin')
 const certificateApplication = require('./routes/api/certificateApplication')
-
 const app = express()
 
 // DB Config
@@ -28,6 +27,8 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
+app.use(cors())
 
 
 // Entry point
