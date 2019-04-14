@@ -51,33 +51,27 @@ export default class ApprovingTasks extends React.Component {
           notifies: '',
           sent_from: '',
           time: 0,
-        },
-        taskFlag : false,
-        partnerFlag : false,
-        notificationFlag : false
+        }
       }
 
       async componentDidMount(){
-        const getAdmin = await axios.get('http://localhost:5000/api/admin/5cb223c01c9d440000a67427')
+        const getAdmin = await axios.get('http://localhost:5000/api/admin/5cb370ce1c9d440000650e53')
         this.setState({Admin:getAdmin.data})
-        console.log('got the admin')
+        console.log('got the admin successfully')
        }
 
       approveTask = async (taskName) => {
-        const uploadedTasks = this.state.Admin.uploaded_tasks;
+        var uploadedTasks = this.state.Admin.uploaded_tasks;
         const getTask = await axios.get(`http://localhost:5000/api/task/GetTaskByDescription/${taskName}`)
         this.setState({Task:getTask.data})
         console.log('got the task successfully')
         for(var i = 0 ; i < uploadedTasks.length ; i++){
-          console.log(uploadedTasks[i])
           if(uploadedTasks[i] === taskName && this.state.Task[0].status === "PENDING"){
             
             const partnerID = this.state.Task[0].posted_by;
-            console.log(partnerID)
              const getPartner = await axios.get(`http://localhost:5000/api/partner/${partnerID}`)
              this.setState({Partner:getPartner.data})
              console.log('got the partner successfully')
-             //.catch(err => console.log(err),this.setState({partnerFlag:false}))
             const data={
               sent_to : this.state.Admin.name,
               notifies : this.state.Partner.contact_info,
@@ -88,15 +82,20 @@ export default class ApprovingTasks extends React.Component {
              const createNotification = await axios.post('http://localhost:5000/api/notification/',data)
               this.setState({Notification:createNotification.data})
               console.log('posted the notification successfully')
-             //.catch(err => console.log(err),this.setState({notificationFlag:false}))
-            
-            this.state.Admin.notifications.push(data.partnerInfo)
-            for( var j = 0; j < uploadedTasks.length; i++){ 
-                if ( uploadedTasks[j] === taskName) {
-                  uploadedTasks.splice(j, 1); 
-                  i--;
+            this.state.Admin.notifications.push(data.notifies)
+            const newUploadedTasks = []
+            for( var j = 0; j < uploadedTasks.length; j++){ 
+                if ( uploadedTasks[j] !== taskName) {
+                  newUploadedTasks.push(uploadedTasks[j])
                 }
              }
+             uploadedTasks = newUploadedTasks
+             const newAdmin = {
+               notifications: this.state.Admin.notifications,
+               uploaded_tasks: uploadedTasks
+             }
+            await axios.put(`http://localhost:5000/api/admin/updateAdmin/${this.state.Admin.email}`,newAdmin)
+            console.log('Admin updated successfully')
           }
             
             
@@ -106,13 +105,19 @@ export default class ApprovingTasks extends React.Component {
        
       }
       disproveTask = async (taskName) => {
-          const uploadedTasks = this.state.Admin.uploaded_tasks;
-          for( var i = 0; i < uploadedTasks.length; i++){ 
-            if ( uploadedTasks[i] === taskName) {
-              uploadedTasks.splice(i, 1); 
-              i--;
+        var uploadedTasks = this.state.Admin.uploaded_tasks
+        const newUploadedTasks = []
+        for( var j = 0; j < uploadedTasks.length; j++){ 
+            if ( uploadedTasks[j] !== taskName) {
+              newUploadedTasks.push(uploadedTasks[j])
             }
          }
+         uploadedTasks = newUploadedTasks
+         const newAdmin = {
+           uploaded_tasks: uploadedTasks
+         }
+        await axios.put(`http://localhost:5000/api/admin/updateAdmin/${this.state.Admin.email}`,newAdmin)
+        console.log('Admin updated successfully')
         }
     render() {
         const AdminTask= this.state.Admin.uploaded_tasks.map((task)=>(
@@ -145,3 +150,4 @@ const btnStyle={
     cursor: 'pointer',
     float:'right',
   }
+
