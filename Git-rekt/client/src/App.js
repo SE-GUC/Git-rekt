@@ -8,6 +8,9 @@ import ReviewCertificates from './components/ReviewCertificates'
 import DisplayCertificates from './components/DisplayCertificates'
 import PartnerNotifications from './components/PartnerNotification'
 import ConsultancyProfile from './components/ConsultancyProfile'
+import UserViewAllAvailableTasks from './components/UserViewAllAvailableTasks'
+import ViewTaskItem from './components/ViewTaskItem'
+import ViewTasks from './components/ViewTasks'
 
 class App extends Component {
   render() {
@@ -22,6 +25,7 @@ class App extends Component {
             <Route exact path="/displayCertificates" component={DisplayCertificates} />
             <Route exact path="/partnerNotifications" component={PartnerNotifications} />
             <Route exact path="/consultancyProfile" component={ConsultancyProfile} />
+            <Route exact path="/UserViewAllAvailableTasks" component={UserViewAllAvailableTasks} />
           </div>
        </div>
        </Router>

@@ -9,6 +9,7 @@ const mongoURL =
 const Task = require("../../models/Task");
 const validator = require("../../validations/taskValidations");
 
+//get all tasks
 router.get('/', async (req, res) => {
     const tasks = await Task.find()
     res.json({ data: tasks })
@@ -41,7 +42,7 @@ router.put("/:id", async (req, res) => {
       return res
         .status(400)
         .send({ error: isValidated.error.details[0].message });
-    const updatedTask = await Task.updateOne(req.body);
+    const updatedTask = await Task.findByIdAndUpdate(taskId, req.body);
     res.json({ msg: "Task updated successfully" });
   } catch (error) {
     // We will be handling the error later

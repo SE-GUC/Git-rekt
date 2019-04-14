@@ -547,7 +547,7 @@ test('get a user contact info', async () => {
 
 // //get user's profile
 test('get a user profile', async () => {
-  body ={
+  body = {
     "name": "personsname",
     "age": 19,
     "email": "test@test.com",

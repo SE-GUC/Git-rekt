@@ -60,7 +60,7 @@ router.put('/:id', async (req,res) => {
         if(!updatePartner) return res.status(404).send({error: 'Partner does not exist'})
         const isValidated = validator.updateValidation(req.body)
         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-        const updatedPartner = await Partner.updateOne(req.body)
+        const updatedPartner = await Partner.findByIdAndUpdate(id, req.body)
         res.json({msg: 'Partner updated successfully'})
     }
     catch(error) {
