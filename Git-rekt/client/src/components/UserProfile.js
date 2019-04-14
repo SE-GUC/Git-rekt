@@ -9,9 +9,9 @@ class UserProfile extends Component {
       name: null,
       age: null,
       email: null,
-      github: null,
+      githubPortofolio: ["omak fi el 3esha"],
       number: null,
-      CV: null,
+      updatedCV: ["walla taret"],
       isLoading: false,
       error: null,
     };
@@ -20,14 +20,14 @@ class UserProfile extends Component {
   async componentDidMount() {
     this.setState({ isLoading: true });
       try {
-        const result = await axios.get("http://localhost:3001/api/user/");  
+        const result = await axios.get("http://localhost:3001/api/user/5cb38382cacd67376ca4b873");  
         this.setState({
-          name: result.data.data[0].name,
-          age: result.data.data[0].age,
-          email: result.data.data[0].email,
-          github: result.data.data[0].github,
-          number: result.data.data[0].number,
-          CV: result.data.data[0].CV,
+          name: result.data.name,
+          age: result.data.age,
+          email: result.data.email,
+          githubPortofolio: result.data.githubPortofolio,
+          number: result.data.number,
+          updatedCV: result.data.updatedCV,
           isLoading: false
         });
       } catch (error) {
@@ -37,9 +37,25 @@ class UserProfile extends Component {
         });
       }
     }
-    render() {
-      const { name, age, email, github, number, CV, isLoading, error } = this.state;
 
+    show(githubPortofolio) {
+      var show = "" ;
+      for(var i=0; i<this.state.githubPortofolio.length; i++)
+        show = show + githubPortofolio[i] + "\n"
+      return show;
+    }
+
+    show2(updatedCV) {
+      var show = "" ;
+      for(var i=0; i<this.state.updatedCV.length; i++)
+        show = show + updatedCV[i] + "\n"
+      return show;
+    }
+
+    render() {
+      const { name, age, email, githubPortofolio, number, updatedCV, isLoading, error } = this.state;
+      var show = this.show(githubPortofolio);
+      var show2 = this.show2(updatedCV);
       if (error) {
         return <h3>{error.message}</h3>;
       }
@@ -51,13 +67,12 @@ class UserProfile extends Component {
       return (
         <div>
         
-          {name ? name  : "nothing here"}
-          {age ? age  : "nothing here"} 
-          {email ? email  : "nothing here" }
-          {github ? github  : "nothing here"} 
-          {number ? number  : "nothing here"} 
-          {CV ? CV  : "nothing here"}  
-       
+          {name ? "name: "+name+" . ": ""}
+          {age ? " age: "+age+" . ": ""} 
+          {email ? " email: "+email+" . ": "" }
+          {githubPortofolio ? " github: "+show +" . ": ""} 
+          {number ? " number: "+number+" . ": ""} 
+          {updatedCV ? " CV: "+show2 +" . ": ""} 
         </div>
       );
     }
