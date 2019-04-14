@@ -66,7 +66,8 @@ class UserProfile extends Component {
   
       return (
         <div>
-        
+          <button><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
+          <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
           {name ? "name: "+name+" . ": ""}
           {age ? " age: "+age+" . ": ""} 
           {email ? " email: "+email+" . ": "" }
