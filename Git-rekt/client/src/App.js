@@ -7,7 +7,7 @@ import UserProfile from './components/UserProfile'
 import ReviewCertificates from './components/ReviewCertificates'
 import DisplayCertificates from './components/DisplayCertificates'
 import PartnerNotifications from './components/PartnerNotification'
-import ConsultancyProfile from './components/ConsultancyProfile'
+
 
 class App extends Component {
   render() {
@@ -21,7 +21,6 @@ class App extends Component {
             <Route exact path="/reviewCertificates" component={ReviewCertificates} />
             <Route exact path="/displayCertificates" component={DisplayCertificates} />
             <Route exact path="/partnerNotifications" component={PartnerNotifications} />
-            <Route exact path="/consultancyProfile" component={ConsultancyProfile} />
           </div>
        </div>
        </Router>
