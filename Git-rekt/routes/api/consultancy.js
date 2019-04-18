@@ -67,7 +67,7 @@ router.put('/:id',async (req,res) => {
         if(!toBeConsultancy) {
             return res.status(404).send({error: 'Consultancy does not exist'})
         }
-        const updatedConsultancy = await Consultancy.updateOne(req.body)
+        const updatedConsultancy = await Consultancy.findByIdAndUpdate(consultancyId, req.body)
         return res.json({msg:'Consultancy updated successfully'})
     }
     catch(error){

@@ -270,13 +270,14 @@ test('Post Application', async () => {
   const body = {
     "user": "Someone",
     "task": "Balabizo",
+    "description": "firmware",
     "date": "2018-02-28T22:00:00.000Z"
   }
   expect.assertions(2)
   const created = await funcs.postApplication(body)
   expect(created.status).toEqual(200)
   const not = await axios.get(`http://localhost:3001/api/application/${created.data.data['_id']}`) 
-  expect(not.data).toMatchObject(body)
+  expect(not.data.user).toEqual(body.user)
   await axios.delete(`http://localhost:3001/api/application/${created.data.data['_id']}`)
 });
 
@@ -284,6 +285,7 @@ test('Put Application', async () => {
   const body = {
     "user": "Someone",
     "task": "Balabizo",
+    "description": "firmware",
     "date": "2018-02-28T22:00:00.000Z"
   }
   const body2 = {
@@ -301,6 +303,7 @@ test('Delete Application', async () => {
   const body = {
     "user": "Someone",
     "task": "Balabizo",
+    "description": "firmware",
     "date": "2018-02-28T22:00:00.000Z"
   }
   const created = await funcs.postApplication(body)
@@ -317,6 +320,7 @@ test('create a task', async () => {
     "description": "description1",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": "postingPerson1",
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
@@ -339,6 +343,7 @@ test('delete a task', async () => {
     "description": "description1",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": "postingPerson1",
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
@@ -360,6 +365,7 @@ test('update a task', async () => {
     "description": "description1",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": "postingPerson1",
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
@@ -383,6 +389,7 @@ test('get a task', async () => {
     "description": "description1",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": "postingPerson1",
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
@@ -488,6 +495,7 @@ test('Set Task Attributes', async () => {
     "description": "description1",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": "postingPerson1",
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
@@ -619,6 +627,7 @@ test(`contact a partner`, async () => {
     "description": "particle accelerator",
     "posted_on": "2014-02-03T22:00:00.000Z",
     "posted_by": `${createdPartner.data.data['_id']}`,
+    "status": "pending_completion",
     "Estimated_effort": "Hard1",
     "Time_taken": "Hours1",
     "Level_of_commitment": "very1",
