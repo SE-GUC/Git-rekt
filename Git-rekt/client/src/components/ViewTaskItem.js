@@ -9,17 +9,6 @@ class ViewTaskItem extends Component {
         borderBottom: '1px #ccc dotted',
     }
   }
-
-  async applyForTask() {
-    const body = {
-      "user": this.props.User,
-      "task": this.props.Task['_id'],
-      "description": this.props.Task.description,
-      "date": Date.now()
-    }
-    const post = await axios.post("http://localhost:3001/api/application", body);
-  }  
-
   
   render() {
     const {description} = this.props.Task;
@@ -27,7 +16,7 @@ class ViewTaskItem extends Component {
       <div style = {this.getStyle()}>
         <p>
             {description}
-            <button onClick = {() => this.applyForTask()} style = {btnStyle}>Apply</button>  
+            <button onClick = {this.props.applyForTask.bind(this,this.props.Task['_id'])} style = {btnStyle}>Apply</button>  
         </p>
       </div>
     )
