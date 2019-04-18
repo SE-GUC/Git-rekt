@@ -1,28 +1,52 @@
+
 const express = require('express')
-const uuid = require('uuid');
-const notification = require('./routes/api/notification')
-// Create the app
+const mongoose = require('mongoose')
+
+// Require Router Handlers
+const tasks = require('./routes/api/task')
+const certificates = require('./routes/api/certificate')
+const partners = require('./routes/api/partner')
+const notifications = require('./routes/api/notification')
+const users = require('./routes/api/user')
+const applications = require('./routes/api/application')
+const consultancy = require('./routes/api/consultancy')
+const admin = require('./routes/api/admin')
+const certificateApplication = require('./routes/api/certificateApplication')
+
 const app = express()
 
-// Use it with post
+// DB Config
+const db = require('./config/keys').mongoURI
+
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+// Init middleware
 app.use(express.json())
-app.get('/', (req, res) => res.json({ data: notification }))
-
-app.get('/', (req,res) => res.send(`<h1>GAFI WEBSITE!!!</h1>`))
-
-app.use('/api/notification', notification)
-
-app.put('/', (req,res) => res.send(`<h1>GAFI WEBSITE!!!</h1>`))
-app.use('/api/notification', notification)
-
-app.delete('/', (req,res) => res.json.send())
-app.use('/api/notification', notification)
+app.use(express.urlencoded({extended: false}))
 
 
+// Entry point
+app.get('/', (req,res) => res.send(`<h1>Certificate Store</h1>`))
+app.get('/test', (req,res) => res.send(`<h1>Deployed on Heroku</h1>`))
 
-app.use((req, res) => {
-    res.status(404).send({err: 'We can not find what you are looking for'});
- })
+// Direct to Route Handlers
+app.use('/api/task', tasks)
+app.use('/api/certificate', certificates)
+app.use('/api/partner', partners)
+app.use('/api/notification', notifications)
+app.use('/api/user', users)
+app.use('/api/application', applications)
+app.use('/api/consultancy', consultancy)
+app.use('/api/admin', admin)
+app.use('/api/certificateApplication', certificateApplication)
 
- const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`Server up and running on port ${port}`)) 
+app.use((req,res) => res.status(404).send(`<h1>Can not find what you're looking for</h1>`))
+
+const port = process.env.PORT || 3001
+app.listen(port, () => console.log(`Server on ${port}`))
+
+//mongoose.connection.dropDatabase()
