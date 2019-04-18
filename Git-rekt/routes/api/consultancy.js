@@ -1,41 +1,50 @@
 const express =  require('express')
+const fetch = require("node-fetch")
+
+const server = require("../../config/config")
 const app = express()
-const consultancyValidator = require('../../validations/consultancyValidations')
-app.use(express.json())
-const router = express.Router()
+
 const Consultancy = require('../../models/Consultancy')
-const applicationValidator = require('../../validations/applicationValidations')
 const Application = require('../../models/Application')
 const Task = require('../../models/Task')
-const fetch = require("node-fetch")
-const server = require("../../config/config")
 const Admin = require("../../models/Admin")
 
+const consultancyValidator = require('../../validations/consultancyValidations')
+const applicationValidator = require('../../validations/applicationValidations')
 
+app.use(express.json())
+const router = express.Router()
+
+//CRUDS
+//get all consultancies
+router.get('/', async (req,res) => {
+    const admins = await Consultancy.find()
+    res.json({data: admins})
+});
 
 //create consultancy mongooDB
 router.post('/', async (req,res) => {
     try {
-     const isValidated = consultancyValidator.createValidation(req.body)
-     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const newConsultancy = await Consultancy.create(req.body)
-     res.json({msg:'Consultancy was created successfully', data: newConsultancy})
+        const isValidated = consultancyValidator.createValidation(req.body)
+        if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+        const newConsultancy = await Consultancy.create(req.body)
+        res.json({msg:'Consultancy was created successfully', data: newConsultancy})
     }
     catch(error) {
         console.log(error)
     }  
- })
+})
 
- //search for specific consultancy
- router.get('/:id', async (req,res) => {
+//search for specific consultancy
+router.get('/:id', async (req,res) => {
     const consultancyId = req.params.id
     const consultancy = await Consultancy.findById(consultancyId);
-    res.json(consultancy);
+    res.json({data:consultancy});
 });
 
 
 // Delete a consultancy mongooDB
- router.delete('/:id', async (req,res) => {
+router.delete('/:id', async (req,res) => {
     try {
         const id = req.params.id
         const deletedConsultancy = await Consultancy.findByIdAndRemove(id)
@@ -44,22 +53,44 @@ router.post('/', async (req,res) => {
     catch(error) {
         console.log(error)
     }  
- })
+})
 
- // Search for a certain consultancy mongooDB
- router.get('/:name', async (req,res) => {
+//update consultancy 
+router.put('/:id',async (req,res) => {
+    try{
+        const isValid = consultancyValidator.updateValidation(req.body)
+        if(isValid.error){ 
+            return res.status(400).send({error: isValid.error.details[0].message})
+        }
+        const consultancyId = req.params.id
+        const toBeConsultancy = await Consultancy.findById(consultancyId)
+        if(!toBeConsultancy) {
+            return res.status(404).send({error: 'Consultancy does not exist'})
+        }
+        const updatedConsultancy = await Consultancy.updateOne(req.body)
+        return res.json({msg:'Consultancy updated successfully'})
+    }
+    catch(error){
+        //We will handle error later
+        console.log(error)
+    }
+})
+
+//User stories
+// Search for a certain consultancy mongooDB
+router.get('/:name', async (req,res) => {
     try {
-     const name = req.params.name
-     const getConsultancy = await consultancy.findOne(name)
-     res.json({msg:'consultancy was searched for successfully', data: getConsultancy})
+        const name = req.params.name
+        const getConsultancy = await consultancy.findOne(name)
+        res.json({msg:'consultancy was searched for successfully', data: getConsultancy})
     }
     catch(error) {
         console.log(error)
     }  
- })
+})
 
- // Search all consultancy
- router.get('/', async (req,res) => {
+// Search all consultancy
+router.get('/', async (req,res) => {
     const consultancy = await Consultancy.find()
     res.json({data: consultancy})
 })

@@ -39,7 +39,7 @@ router.put('/:id', async(req,res) => {
         if(!application) return res.status(404).send({ error: 'Application does not exist' })
         const isValidated = validator.updateValidation(req.body)
         if(isValidated.error) return res.status(400).send({error: isValidated.details[0].message})
-        const updatedCertificate = await Application.updateOne(req.body)
+        const updatedCertificate = await Application.findByIdAndUpdate(id, req.body)
         res.json({msg: 'Application updated successfully', data: updatedCertificate})
     } catch (error) {
         console.log(error)

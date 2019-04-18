@@ -28,7 +28,7 @@ router.put('/:id', async (req,res) => {
      if(!user) return res.status(404).send({error: 'User does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const updatedUser = await User.updateOne(req.body)
+     const updatedUser = await User.findByIdAndUpdate(id, req.body)
      res.json({msg: 'User updated successfully'})
     }
     catch(error) {
@@ -50,13 +50,14 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 
-  //search for specific user
+//search for specific user
 router.get('/:id', async (req, res) => {
     const userId = req.params.id
     const foundUser = await User.findById(userId);
     res.json(foundUser);
 });
 
+//get all users
 router.get('/', async (req,res) => {
     const users = await User.find()
     res.json({data: users})

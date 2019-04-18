@@ -20,6 +20,10 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
+  status: {
+    type: String,
+    require: true
+  },
   Estimated_effort: {
     type: String,
     required: true

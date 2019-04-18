@@ -12,6 +12,10 @@ const ApplicationSchema = new Schema(
         type: String,
         required: true
     },
+    description:{//takes task id
+        type: String,
+        required: true
+    },
     date:{//date of creation
         type: Date,
         //default: Date.now()
