@@ -66,7 +66,7 @@ router.get('/:id', async (req,res) =>{
     try {
         const id = req.params.id
         const Partner1 = await Partner.findById(id)
-        res.json({msg:'Partner was retrieved successfully', data: Partner1})
+        res.json(Partner1)
        }
        catch(error) {
            // We will be handling the error later

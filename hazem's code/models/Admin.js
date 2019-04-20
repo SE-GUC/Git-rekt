@@ -15,14 +15,14 @@ const AdminSchema = new Schema({
         type: String,
         required: true
      },
+    notifications:{
+        type: [String],
+        required: true
+    },
     uploaded_tasks: {
         type: [String],
         required: true
     },
-    notifications:{
-        type: [String],
-        required: true
-    }
 })
 
 module.exports = admin = mongoose.model('admins', AdminSchema)

@@ -59,8 +59,8 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
     const userId = req.params.id
-    const foundUser = await Task.findById(userId);
-    res.json({data: foundUser});
+    const foundUser = await User.findById(userId);
+    res.json(foundUser);
 });
 
 //Search for Certificate

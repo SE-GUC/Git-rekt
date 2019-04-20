@@ -65,7 +65,12 @@ const taskSchema = new Schema({
   },
   assigned_users: {
     type: [String]
+  },
+  status: {
+    type: String,
+    default: 'PENDING'
   }
+  
 });
 
 module.exports = Task = mongoose.model('tasks', taskSchema)

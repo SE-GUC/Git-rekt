@@ -1,32 +1,48 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
 
 
-export class UserNotifications extends React.Component {
-    state = {
-        requiredUser: {},
-        fetched : false
+export default class TaskAttribute extends React.Component {  
+  state = {
+    requiredUser : {
+      name: '',
+      age: 0,
+      email: '',
+      password: '',
+      githubportofolio: [],
+      contactInfo: 0,
+      updatedCV: [],
+      registeredOn: 0,
+      signed: false,
+      rating: 0,
+      notifications: [],
+      certifications: []
     }
-
-    componentDidMount(id){
-        axios.get(`http://localhost:4000/api/user/${id}`)
-        .then(res => {this.setState({requiredUser:res.data.data, fetched : true});})
-        .catch(err => {console.log(err); this.setState({fetched : false})})
-        }
+  }
+  
+  componentDidMount(){    
+    axios.get('http://localhost:5000/api/user/5ca131d7fdb0a12b84496d9b')
+    .then(res => this.setState({ requiredUser : res.data}))
+    .catch(err => console.log(err))
+   }
 
     render() {
-        if(this.state.fetched){
-            const User = this.state.requiredUser
-            return (
-                <div>
-                <h3>{User.notifications}</h3>
-                </div>
-            )
-        }else{
-            return <h1>Couldn't get data due to an error</h1>
-        }
+    const User = this.state.requiredUser;
+    console.log(User)
+    const UserNot = User.notifications.map((notif) => (
+        <h3>{notif}</h3>
+    ))
     
+    return(
+        <div>
+        <h1>Your Notifications:</h1>
+        {UserNot}
+        </div>
+    );
+      
+      
+    }
   }
-}
 
-export default UserNotifications
+
+
