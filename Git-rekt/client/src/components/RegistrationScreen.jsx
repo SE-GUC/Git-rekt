@@ -24,9 +24,9 @@ class RegistrationPage extends Component {
     )
       return alert("ERROR: complete your fields");
   };
-  handleRegister = () => {
+  handleRegister = async () => {
     this.isNonEmpty();
-    axios.post("http://localhost:3001/api/user/", {
+    await axios.post("http://localhost:3001/api/user/", {
       name:
         document.getElementById("inputFirstName").value +
         " " +
