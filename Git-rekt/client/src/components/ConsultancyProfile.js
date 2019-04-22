@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './button.css'
 
 class ConsultancyProfile extends Component {
   constructor(props) {
@@ -50,16 +51,17 @@ class ConsultancyProfile extends Component {
       }
   
       return (
-        <div>
-          <p>
-          {name ? "Name: " + name + " " : "nothing here "}
-          {comRegNum ? "comRegNum: " + comRegNum + " " : "nothing here "} 
-          {establishedsince ? "establishedSince: " + establishedsince + " " : "nothing here " }
-          {field ? "field: " + field + " " : "nothing here "} 
-          {description ? "description: " + description + " " : "nothing here "} 
-          {email ? "email: " + email + " " : "nothing here "}
-          {phoneNumber ? "phonenumber: " + phoneNumber + " " : "nothing here "}  
-          </p>
+        <div ClassName='button' Style="color:green;text-align: left;">
+          <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>
+            <span Style='Color:black;font-weight: bold;'>name:</span>{name ? " " +name: "not provided"}
+            <br />
+            <span Style='Color:black;font-weight: bold;'>comRegNum:</span>{comRegNum ? "  " +comRegNum: "not provided"}
+            <br />
+            <span Style='Color:black;font-weight: bold;'>establishedsince:</span>{establishedsince ? "  " +establishedsince: "not provided"}<br />
+            <span Style='Color:black;font-weight: bold;'>field:</span>{field ? "  " +field: "not provided"} <br />
+            <span Style='Color:black;font-weight: bold;'>description:</span>{description ? "  " +description: "not provided"}<br />
+            <span Style='Color:black;font-weight: bold;'>email:</span>{email ? "  " +email: "not provided"}<br/>
+            <span Style='Color:black;font-weight: bold;'>phoneNumber:</span>{phoneNumber ? "  " +phoneNumber: "not provided"}
         </div>
       );
     }

@@ -9,6 +9,8 @@ import DisplayCertificates from './components/DisplayCertificates'
 import PartnerNotifications from './components/PartnerNotification'
 import ConsultancyProfile from './components/ConsultancyProfile'
 import UserViewAllAvailableTasks from './components/UserViewAllAvailableTasks'
+import UpdateUser from './components/UpdateUser'
+import RegistrationPage from './components/RegisterScreen.jsx'
 import ViewTaskItem from './components/ViewTaskItem'
 import ViewTasks from './components/ViewTasks'
 
@@ -20,6 +22,8 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/registerPage" component={RegistrationPage} />
+            <Route exact path="/updateUser"component={UpdateUser} />
             <Route exact path="/userProfile" component={UserProfile} />
             <Route exact path="/reviewCertificates" component={ReviewCertificates} />
             <Route exact path="/displayCertificates" component={DisplayCertificates} />

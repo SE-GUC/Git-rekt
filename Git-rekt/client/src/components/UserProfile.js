@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './button.css'
 
 
 class UserProfile extends Component {
@@ -65,15 +66,21 @@ class UserProfile extends Component {
       }
   
       return (
-        <div>
-          <button><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
+        <div ClassName='button' Style="color:green;text-align: left;">
+          <button ><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
           <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
-          {name ? "name: "+name+" . ": ""}
-          {age ? " age: "+age+" . ": ""} 
-          {email ? " email: "+email+" . ": "" }
-          {githubPortofolio ? " github: "+show +" . ": ""} 
-          {number ? " number: "+number+" . ": ""} 
-          {updatedCV ? " CV: "+show2 +" . ": ""} 
+          <br />
+          <div Style="text-align: justify;">
+          <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>
+            <span Style='Color:black;font-weight: bold;'>name:</span>{name ? " " +name: "not provided"}
+            <br />
+            <span Style='Color:black;font-weight: bold;'>age:</span>{age ? "  " +age: "not provided"}
+            <br />
+            <span Style='Color:black;font-weight: bold;'>email:</span>{email ? "  " +email: "not provided"}<br />
+            <span Style='Color:black;font-weight: bold;'>github:</span>{githubPortofolio ? "  " +show: "not provided"} <br />
+            <span Style='Color:black;font-weight: bold;'>number:</span>{number ? "  " +number: "not provided"}<br />
+            <span Style='Color:black;font-weight: bold;'>CV:</span>{updatedCV ? "  " +show2: "not provided"}
+          </div> 
         </div>
       );
     }
