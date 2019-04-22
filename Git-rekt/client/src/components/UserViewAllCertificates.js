@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Certificate } from 'crypto';
+import axios from 'axios'
+import ViewCertifcates from './ViewCertificates'
 
 export class UserViewAllCertificates extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ export class UserViewAllCertificates extends Component {
       console.log("" + this.state.certifications.length)
       console.log(this.state.certifications[0])
       //first we get all certificates available
-      const getCertificates = await axios.get("http://localhost:3001/api/certificates");  
+      const getCertificates = await axios.get("http://localhost:3001/api/certificate");  
       const allCertificates = getCertificates.data.data
       var pendingCertificates = []
       var i, j, k;
@@ -92,7 +93,7 @@ export class UserViewAllCertificates extends Component {
       const userId = user.data['_id']
       const userCert = user.data.certifications 
       this.setState({id: userId, certifications: userCert, isLoading: false})
-      await this.setAvailableTasks()
+      await this.setAvailableCertificates()
     }
     catch (error) {
       this.setState({
@@ -114,13 +115,12 @@ export class UserViewAllCertificates extends Component {
     
     return(
       <div>
-      <h1>{msg}</h1>
-      <ViewTasks Certificates = {availableCertificates} UserId = {id} applyForCertificate = {this.applyForCertificate} />
+      <h1>{msg}</h1>  
+      <ViewCertifcates Certificates = {availableCertificates} UserId = {id} applyForCertificate = {this.applyForCertificate} />
       </div>
       );
     }
   }
   
-  export default UserViewAllCer
-  tificates
+  export default UserViewAllCertificates
   
