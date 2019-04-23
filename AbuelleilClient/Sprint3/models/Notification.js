@@ -17,7 +17,7 @@ const NotificationSchema = new Schema({
     },
     time: {
         type: Number, 
-        required: true
+        default:Date.now
     },
 })
 

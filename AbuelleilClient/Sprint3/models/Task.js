@@ -5,16 +5,15 @@ const Schema = mongoose.Schema
 const taskSchema = new Schema({
   approved_by: {
     type: String,
-    required: true
+    default:''
   },
   description: {
     type: String,
     required: true
-  },
+  },  
   posted_on: {
     type: Date,
     default: Date.now,
-    required: true
   },
   posted_by: {
     type: String,
@@ -22,11 +21,9 @@ const taskSchema = new Schema({
   },
   Estimated_effort: {
     type: String,
-    required: true
   },
   Time_taken: {
     type: String,
-    required: true
   },
   Level_of_commitment: {
     type: String,
@@ -34,7 +31,6 @@ const taskSchema = new Schema({
   },
   Experience_level: {
     type: String,
-    required: true
   },
   Monetary_compensation: {
     type: Number,
@@ -46,25 +42,30 @@ const taskSchema = new Schema({
   },
   Assigned_Consultancy: {
     type: String,
-    required: true
+    default:''
   },
   reviewed: {
     type: Boolean,
-    required: true
   },
   Required_set_of_skills: {
     type: [String],
-    required: true
+    default:[]
   },
   task_list: {
     type: [String],
-    required: true
+    default:[]
   },
   applicant_list: {
-    type: [String]
+    type: [String],
+    default:[]
   },
   assigned_users: {
-    type: [String]
+    type: [String],
+    default:[]
+  },
+  stauts:{
+    type:String,
+    default:'pending'
   }
 });
 

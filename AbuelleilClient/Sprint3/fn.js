@@ -6,12 +6,13 @@ getAdmin: async (id) => {
     return admin
     },
 createAdmin: async (body) => {
+    console.log(`----------------------------`)
     const admin = await axios.post(`http://localhost:3000/api/admin/createAdmin`, body)
     console.log(`----------------------------`+admin)
     return admin
 },
 updateAdmin: async (id,body) =>{
-    const admin = await axios.put(`http://localhost:3000/api/admin/updateAdmin/${id}}`,body)
+    const admin = await axios.put(`http://localhost:3000/api/admin/updateAdmin/${id}`,body)
     return admin
 },
 deleteAdmin: async (id) =>{

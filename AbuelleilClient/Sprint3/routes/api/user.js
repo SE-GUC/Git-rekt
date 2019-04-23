@@ -5,6 +5,7 @@ const validator = require('../../validations/userValidations')
 const fetch = require("node-fetch")
 const server = require("../../config/config")
 const Certificate = require("../../models/Certificate")
+const task = require('../../models/Task')
 
 //Post in a Books-method
 router.post('/', async (req,res) => {
@@ -20,29 +21,30 @@ router.post('/', async (req,res) => {
     }  
  })
 //browse vacancies (Abuelleil)
-router.get('/api/user/browseVacancies/:id', async (req,res) => {
+router.get('/browseVacancies/:id', async (req,res) => {
     const avaliableTasks = [String]
     var flag = true
-    var count = 0;
     const id = req.params.id
-    const user = await Users.findById(id)
+    const user = await User.findById(id)
     const userCertifications = user.certifications
     const allTasks = await task.find()
-    for(i=0;i<=allTasks.size();i++){//loops over all avaliable tasks
-        const taskCertifications = allTasks[i].Required_set_of_skills
-        for(j=0;j<taskCetifications.size();j++){//loops over all the required certifications
-            const curr = taskCertifications[j]
-            for(k=0;k<userCertifications.size();k++){//takes each certification individaually to make sure said user has that certification 
-                if(curr === userCertifications[k]){
+    //console.log(allTasks)
+    for(var i=0;i<allTasks.length;i++){//loops over all avaliable tasks
+        var count = 0;
+       const taskCertifications = allTasks[i].Required_set_of_skills
+        for(var j=0;j<taskCertifications.length;j++){//loops over all the required certifications
+            const currTask = taskCertifications[j]
+            for(var k=0;k<userCertifications.length;k++){//takes each certification individaually to make sure said user has that certification 
+                if(currTask === userCertifications[k]){
                     count++;
                 }
             }
-            if(count !== taskCertifications.size()){//if count is the same as the size of the taskCertification array then user has all certifications in said array
-                flag = false;
-            }
+        }
+        if(count < taskCertifications.length){//if count is the same as the size of the taskCertification array then user has all certifications in said array
+            flag = false;
         }
         if(flag){
-            avaliableTasks.push(allTasks[i].id)
+            avaliableTasks.push(allTasks[i]._id)
         }
     }
     res.send ({msg:'all avaliable tasks',data: avaliableTasks})

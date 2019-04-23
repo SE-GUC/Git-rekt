@@ -50,8 +50,8 @@ router.delete('/:id', async (req,res) => {
  })
 
 //mongoose 
-router.get('/', async (req,res) => {
-    const Notifications = await Notification.find()
+router.get('/:id', async (req,res) => {
+    const Notifications = await Notification.findById(req.params.id)
     res.json({data: Notifications})
 })
 

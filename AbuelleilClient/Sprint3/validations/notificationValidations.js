@@ -6,10 +6,8 @@ module.exports = {
             sent_to: Joi.string().min(3).max(50).required(),
             notifies: Joi.string().min(3).max(50).required(),
             sent_from: Joi.string().min(3).max(50).required(),
-            time:Joi.number().min(3).max(3000).required()
-            
+            time:Joi.number().min(3).max(3000)
         }
-
         return Joi.validate(request, createSchema)
     },
 

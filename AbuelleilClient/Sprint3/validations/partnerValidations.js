@@ -13,12 +13,12 @@ module.exports = {
             info: Joi.string().min(3).max(500).required(),
             signed: Joi.string().min(3).max(500).required(),
             rating: Joi.number().min(3).max(500).required(),
-            submitted_tasks: Joi.array().items(Joi.string().min(3).max(500).required()),
-            notifications: Joi.array().items(Joi.string().min(3).max(500).required()),
-            associates: Joi.array().items(Joi.string().min(3).max(500).required()),
-            board_members: Joi.array().items(Joi.string().min(3).max(500).required()),
-            events: Joi.array().items(Joi.string().min(3).max(500).required()),
-            feedback: Joi.string().min(3).max(500).required(),
+            submitted_tasks: Joi.array().items(Joi.string().min(3).max(500)),
+            notifications: Joi.array().items(Joi.string().min(3).max(500)),
+            associates: Joi.array().items(Joi.string().min(3).max(500)),
+            board_members: Joi.array().items(Joi.string().min(3).max(500)),
+            events: Joi.array().items(Joi.string().min(3).max(500)),
+            feedback: Joi.string().min(3).max(500),
         }
 
         return Joi.validate(request, createSchema)

@@ -64,16 +64,17 @@ router.post('/', async (req,res) => {
     res.json({data: consultancy})
 })
 
-router.post('/:consultancyEmail/applyForTask/:taskId', async (req,res) => {
+router.post('/:consultancyId/applyForTask/:taskId', async (req,res) => {
     try{
-        const email = req.params.consultancyEmail
+        const CId = req.params.consultancyId
         const tID = req.params.taskId
-        const isValidApp =  applicationValidator.createValidation({submittedBy:email,submittedFor:tID})
+        const newTask = await Task.findById({tID})
+        const newConsultancy =  await Consultancy.findbyId({CId})
+        if(newTask === undefined) return res.status(404).send({error: 'task does not exist error 404'})
+        const newApplication =  await Application.create({'user':email,'task':tID})
+        const isValidApp =  applicationValidator.createValidation(newApplication)
         if(isValidApp.error) return res.status(400).send({error: isValidApp.error.details[0].message})
-        const newApplication =  await Application.create({email,tID})
-        const newTask = await Task.find({tID})
-        const newConsultancy =  await Consultancy.find({email})
-        newTask.applicant_list.push(newConsultancy.id)
+        newTask=await Task.findByIdAndUpdate(tId,newTask.applicant_list.push(CId))
         res.send({msg:'application created successfully',data:newApplication})
     }catch(error) {
         console.log(error)

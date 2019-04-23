@@ -22,7 +22,7 @@ const PartnerSchema = new Schema({
         },
         registered_on: {
                 type: Date,
-                required: true  
+                default:Date.now
         } ,
         com_reg_num: {
                 type: Number,

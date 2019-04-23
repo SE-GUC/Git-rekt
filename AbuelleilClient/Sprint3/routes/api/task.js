@@ -71,7 +71,8 @@ router.delete("/:id", async (req, res) => {
 
 //search for all tasks
 router.get('/', (req, res) => {
-    res.json({ data: Task })
+     const task = Task.find()
+    res.json({ data: task })
 });
 
 module.exports = router
