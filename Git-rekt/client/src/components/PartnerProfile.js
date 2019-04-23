@@ -78,7 +78,7 @@ class PartnerProfile extends Component {
       return (
         <div ClassName='button' Style="color:green;text-align: left;">
           <button><a href="http://localhost:3000/UpdatePartner">Update Partner</a></button>
-          <button><a href="http://localhost:3000/UpdatePartner">Submit Task</a></button>
+          <button><a href="http://localhost:3000/SubmitTask">Submit Task</a></button>
           <br />
           <div Style="text-align: justify;">
           <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>
