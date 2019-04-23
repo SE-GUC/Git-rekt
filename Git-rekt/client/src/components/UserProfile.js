@@ -70,7 +70,7 @@ class UserProfile extends Component {
           <button ><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
           <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
           <button><a href="http://localhost:3000/UserViewAllAvailableTasks">Apply Task</a></button>
-          <button><a href="http://localhost:3000/UpdateUser">Apply Certificate</a></button>
+          <button><a href="http://localhost:3000/UserViewAllCertificates">Apply Certificate</a></button>
           <button><a href="http://localhost:3000/UpdateUser">View Consultancy</a></button>
           <br />
           <div Style="text-align: justify;">
