@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 const server = require("../../config/config")
 // const app = express()
@@ -106,7 +108,34 @@ router.post('/submitTask/:id', async (req, res) => {
     }
 })
 
-//assign user from candidate users to a task
+ //searching by email
+ router.get('/searchMail/:email', async (req, res) => {
+    const partnerEmail = req.params.id
+    const foundPartner = await Partner.findOne({partnerEmail});
+    res.json(foundPartner);
+}); 
+
+ //login partner?!
+ router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const partner = await Partner.findOne({email});
+		if (!partner) return res.status(404).json({ email: 'Email does not exist' });
+		if (password === partner.password) {
+            const payload = {
+                id: partner.id,
+                name: partner.name,
+                email: partner.email
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            return res.json({token: `Bearer ${token}`})
+        }
+		else return res.status(400).send({ password: 'Wrong password' });
+	} catch (e) {}
+});
+
+
+//assign partner from candidate partners to a task
 
 
 //contact admin through mail

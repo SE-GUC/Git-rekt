@@ -33,7 +33,7 @@ class UserProfile extends Component {
       console.log("can not decode token")
     }
   }
-  
+
   async componentDidMount() {
     this.setState({ isLoading: true });
     try {
