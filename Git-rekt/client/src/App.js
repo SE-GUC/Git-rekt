@@ -13,7 +13,6 @@ import PartnerNotifications from './components/PartnerNotification'
 import ConsultancyProfile from './components/ConsultancyProfile'
 import UserViewAllAvailableTasks from './components/UserViewAllAvailableTasks'
 import UpdateUser from './components/UpdateUser'
-import Register from './components/Register';
 import UpdatePartner from './components/UpdatePartner'
 import SubmitTask from './components/SubmitTask'
 import RegistrationPage from './components/RegisterScreen.jsx'
