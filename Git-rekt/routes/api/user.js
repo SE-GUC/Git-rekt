@@ -6,6 +6,9 @@ const fetch = require("node-fetch")
 const server = require("../../config/config")
 const Certificate = require("../../models/Certificate")
 
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
+
 //Post in a user-method
 router.post('/', async (req,res) => {
     try {
@@ -167,5 +170,30 @@ router.get('/getCertificateRecommendations', async (req,res) => {
      res.json({ data: reccomendations });
  });
 
+ //searching by email
+ router.get('/searchMail/:email', async (req, res) => {
+    const userEmail = req.params.id
+    const foundUser = await User.findOne(userEmail);
+    res.json(foundUser);
+}); 
+
+ //login user?!
+ router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({email});
+		if (!user) return res.status(404).json({ email: 'Email does not exist' });
+		if (password === user.password) {
+            const payload = {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            return res.json({token: `Bearer ${token}`})
+        }
+		else return res.status(400).send({ password: 'Wrong password' });
+	} catch (e) {}
+});
 
 module.exports = router

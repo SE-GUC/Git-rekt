@@ -2,47 +2,101 @@ import React, { Component } from 'react';
 import logo from './LirtenHub.PNG';
 import axios from "axios";
 import './button.css'
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import * as jwt_decode from "jwt-decode";
+
+import setAuthToken  from '../helpers/setAuthToken'
+import UserProfile from './UserProfile'
 
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id:null,
+      loggingIn: false
+    }
+	}
+
   isNonEmpty = () => {
-    const id = document.getElementById("inputID").value;
+    const em = document.getElementById("inputEmail").value;
     const pw = document.getElementById("password").value;
     if (
-      id === "" ||
+      em === "" ||
       pw === ""
     )
       return alert("ERROR: complete your fields");
   };
-  getUser = async (id) => {
+  getUser = async (email) => {
     this.isNonEmpty();
     
-      return await axios.get(`http://localhost:3001/api/user/${id}`)
+      return await axios.get(`http://localhost:3001/api/user/searchMail/${email}`)
   }
 
-  handleLogin = async (id, password) => {
+  handleLogin = async (email, password) => {
+    const userData = {
+      "email": email,
+      "password": password
+    }
+    console.log("handling login")
+    try{
+      this.login(userData)
+      console.log("handled login")
+    }
+    catch(error){
+        console.log("can not sign in")
+    }
    
-    const userOnDB = await this.getUser(id); 
-    console.log(userOnDB.data);
-    if(password === userOnDB.data.password){
-      alert("logged in");
-    }else alert("wrong password");
+    // const userOnDB = await this.getUser(id); 
+    // console.log(userOnDB.data);
+    // if(password === userOnDB.data.password){
+    //   alert("logged in");
+    // }else alert("wrong password");
   }
+
+  login = async (userData) => {
+    console.log("attempting")
+    await axios.post('http://localhost:3001/api/user/login', userData)
+    .then( res => {
+      const { token } = res.data
+      localStorage.setItem('jwtToken', token)
+      setAuthToken(token)
+  
+    })
+    .catch(err => console.log(err))
+    const tokenInfo = localStorage.getItem('jwtToken')
+    console.log(tokenInfo + "")
+    try{
+      const payload = jwt_decode(tokenInfo)
+      const userId = payload.id
+      this.setState({id: userId, loggingIn:true})
+      console.log("finished making tokin")
+    }
+    catch(error){
+      console.log("can not decode token")
+    }
+  };
 
   render() {
+    if(this.state.loggingIn){
+      console.log("rerouting")
+      return(
+        <Redirect to='./UserProfile' />
+      )     
+    }
     return (
        <div  Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">
             <img src={logo} Style="width: 20%;text-align: left;" alt="logo"/>
             <pre>
-            ID      :
-            <input type="text" id="inputID" /><br/>
+            Email:
+            <input type="text" id="inputEmail" /><br/>
             </pre>
             Password:
             <input type="text" id="password" /><br/>
           <button onClick = 
           {(e)=> {
               e.preventDefault(); 
-              this.handleLogin(document.getElementById("inputID").value, document.getElementById("password").value);
+              this.handleLogin(document.getElementById("inputEmail").value, document.getElementById("password").value);
             }
           } 
           >login </button>
