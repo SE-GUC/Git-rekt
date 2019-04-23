@@ -177,7 +177,7 @@ router.get('/getCertificateRecommendations', async (req,res) => {
     res.json(foundUser);
 }); 
 
- //login user?!
+ //login user
  router.post('/login', async (req, res) => {
 	try {
 		const { email, password } = req.body;

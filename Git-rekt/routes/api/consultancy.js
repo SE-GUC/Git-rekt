@@ -120,5 +120,24 @@ router.get("/contactAdmin/:id", async(req,res)=>{
     res.json({data: {Name , Email}})
 })
 
+//login consultancy
+router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const consultancy = await Consultancy.findOne({email});
+		if (!consultancy) return res.status(404).json({ email: 'Email does not exist' });
+		if (password === consultancy.password) {
+            const payload = {
+                id: consultancy.id,
+                name: consultancy.name,
+                email: consultancy.email
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            return res.json({token: `Bearer ${token}`})
+        }
+		else return res.status(400).send({ password: 'Wrong password' });
+	} catch (err) {}
+});
+
 router.get('/', (req, res) => res.json({ data:  Consultancy}))
 module.exports = router
