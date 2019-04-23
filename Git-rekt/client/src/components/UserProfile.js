@@ -91,7 +91,7 @@ class UserProfile extends Component {
           <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
           <button><a href="http://localhost:3000/UserViewAllAvailableTasks">Apply Task</a></button>
           <button><a href="http://localhost:3000/UserViewAllCertificates">Apply Certificate</a></button>
-          <button><a href="http://localhost:3000/UpdateUser">View Consultancy</a></button>
+          <button><a href="http://localhost:3000/ViewAllConsultancies">View Consultancy</a></button>
           <br />
           <div Style="text-align: justify;">
           <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>

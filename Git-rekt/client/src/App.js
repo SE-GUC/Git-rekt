@@ -14,6 +14,7 @@ import RegistrationPage from './components/RegisterScreen.jsx'
 import ViewTaskItem from './components/ViewTaskItem'
 import ViewTasks from './components/ViewTasks'
 import UserViewAllCertificates from './components/UserViewAllCertificates';
+import ViewAllConsultancies from './components/ViewAllConsultancies';
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
             <Route exact path="/partnerNotifications" component={PartnerNotifications} />
             <Route exact path="/consultancyProfile" component={ConsultancyProfile} />
             <Route exact path="/UserViewAllAvailableTasks" component={UserViewAllAvailableTasks} />
+            <Route exact path="/ViewAllConsultancies" component={ViewAllConsultancies} />
             <Route exact path="/UserViewAllCertificates" component={UserViewAllCertificates} />
           </div>
        </div>
