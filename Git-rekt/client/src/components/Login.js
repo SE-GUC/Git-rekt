@@ -24,7 +24,7 @@ class Login extends Component {
             <img src={logo} Style="width: 20%;text-align: left;" alt="logo"/><br />
             <button ><a href="http://localhost:3000/UserLogin">User Login</a></button>
             <button><a href="http://localhost:3000/PartnerLogin">Partner Login</a></button>
-            <button><a href="http://localhost:3000/">Consultancy Login</a></button>
+            <button><a href="http://localhost:3000/ConsultancyProfile">Consultancy Login</a></button>
             <button><a href="http://localhost:3000/">Admin Login</a></button>
        </div>
     );
