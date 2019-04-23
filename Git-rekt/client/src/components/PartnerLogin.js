@@ -93,7 +93,7 @@ class PartnerLogin extends Component {
             }
           } 
           >login </button>
-          <button><a href="http://localhost:3000/registerPage">register</a></button>
+          <button><a href="http://localhost:3000/registerPagePartner">register</a></button>
        </div>
     );
   }
