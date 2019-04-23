@@ -14,6 +14,7 @@ import ConsultancyProfile from './components/ConsultancyProfile'
 import UserViewAllAvailableTasks from './components/UserViewAllAvailableTasks'
 import UpdateUser from './components/UpdateUser'
 import UpdatePartner from './components/UpdatePartner'
+import SubmitTask from './components/SubmitTask'
 import RegistrationPage from './components/RegisterScreen.jsx'
 import ViewTaskItem from './components/ViewTaskItem'
 import ViewTasks from './components/ViewTasks'
@@ -42,6 +43,7 @@ class App extends Component {
             <Route exact path="/UserViewAllAvailableTasks" component={UserViewAllAvailableTasks} />
             <Route exact path="/ViewAllConsultancies" component={ViewAllConsultancies} />
             <Route exact path="/UserViewAllCertificates" component={UserViewAllCertificates} />
+            <Route exact path="/SubmitTask" component={SubmitTask} />
           </div>
        </div>
        </Router>

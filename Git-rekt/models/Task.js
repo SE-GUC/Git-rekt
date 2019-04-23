@@ -5,7 +5,6 @@ const Schema = mongoose.Schema
 const taskSchema = new Schema({
   approved_by: {
     type: String,
-    required: true
   },
   description: {
     type: String,
@@ -26,43 +25,33 @@ const taskSchema = new Schema({
   },
   Estimated_effort: {
     type: String,
-    required: true
   },
   Time_taken: {
     type: String,
-    required: true
   },
   Level_of_commitment: {
     type: String,
-    required: true
   },
   Experience_level: {
     type: String,
-    required: true
   },
   Monetary_compensation: {
     type: Number,
-    required: true
   },
   Owner: {
     type: String,
-    required: true
   },
   Assigned_Consultancy: {
     type: String,
-    required: true
   },
   reviewed: {
     type: Boolean,
-    required: true
   },
   Required_set_of_skills: {
     type: [String],
-    required: true
   },
   task_list: {
     type: [String],
-    required: true
   },
   applicant_list: {
     type: [String]

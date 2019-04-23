@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const fetch = require('node-fetch')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const tokenKey = require('../../config/keys').secretOrKey
