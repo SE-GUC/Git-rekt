@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import ViewCertifcates from './ViewCertificates'
+import * as jwt_decode from "jwt-decode";
 
 export class UserViewAllCertificates extends Component {
   constructor(props) {
@@ -85,11 +86,27 @@ export class UserViewAllCertificates extends Component {
       });
     }
   }
+
+  async settingUserId() { 
+    try{
+      const tokenInfo = localStorage.getItem('jwtToken')
+      const payload = jwt_decode(tokenInfo)
+      const userId = payload.id
+      console.log("" + userId)
+      this.setState({id: userId+""})
+      console.log(""+this.state.id)
+      console.log("finished making tokin")
+    }
+    catch(error){
+      console.log("can not decode token")
+    }
+  }
   
   async componentDidMount() {
     this.setState({isLoading: true})
     try{
-      const user = await axios.get("http://localhost:3001/api/user/5cb875deaf120c3d9c609ced");
+      await this.settingUserId()
+      const user = await axios.get(`http://localhost:3001/api/user/${this.state.id}`);
       const userId = user.data['_id']
       const userCert = user.data.certifications 
       this.setState({id: userId, certifications: userCert, isLoading: false})

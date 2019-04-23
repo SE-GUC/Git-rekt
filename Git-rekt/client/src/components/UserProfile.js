@@ -1,57 +1,77 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './button.css'
-
+import * as jwt_decode from "jwt-decode";
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: null,
       age: null,
       email: null,
-      githubPortofolio: ["omak fi el 3esha"],
+      githubPortofolio: ["-"],
       number: null,
-      updatedCV: ["walla taret"],
+      updatedCV: ["-"],
       isLoading: false,
       error: null,
     };
   }
-
+  
+  async settingUserId() { 
+    try{
+      const tokenInfo = localStorage.getItem('jwtToken')
+      const payload = jwt_decode(tokenInfo)
+      const userId = payload.id
+      console.log("" + userId)
+      this.setState({id: userId+""})
+      console.log(""+this.state.id)
+      console.log("finished making tokin")
+    }
+    catch(error){
+      console.log("can not decode token")
+    }
+  }
+  
   async componentDidMount() {
     this.setState({ isLoading: true });
-      try {
-        const result = await axios.get("http://localhost:3001/api/user/5cb38382cacd67376ca4b873");  
-        this.setState({
-          name: result.data.name,
-          age: result.data.age,
-          email: result.data.email,
-          githubPortofolio: result.data.githubPortofolio,
-          number: result.data.number,
-          updatedCV: result.data.updatedCV,
-          isLoading: false
-        });
-      } catch (error) {
-        this.setState({
-          error,
-          isLoading: false
-        });
-      }
+    try {
+      await this.settingUserId()
+      console.log("getting user")
+      console.log("" + this.state.id)
+      const result = await axios.get(`http://localhost:3001/api/user/${this.state.id}`);  
+      console.log("got user")
+      this.setState({
+        name: result.data.name,
+        age: result.data.age,
+        email: result.data.email,
+        githubPortofolio: result.data.githubPortofolio,
+        number: result.data.number,
+        updatedCV: result.data.updatedCV,
+        isLoading: false
+      });
+    } catch (error) {
+      this.setState({
+        error,
+        isLoading: false
+      });
     }
-
-    show(githubPortofolio) {
-      var show = "" ;
-      for(var i=0; i<this.state.githubPortofolio.length; i++)
-        show = show + githubPortofolio[i] + "\n"
-      return show;
-    }
-
-    show2(updatedCV) {
-      var show = "" ;
-      for(var i=0; i<this.state.updatedCV.length; i++)
-        show = show + updatedCV[i] + "\n"
-      return show;
-    }
+  }
+  
+  show(githubPortofolio) {
+    var show = "" ;
+    for(var i=0; i<this.state.githubPortofolio.length; i++)
+    show = show + githubPortofolio[i] + "\n"
+    return show;
+  }
+  
+  show2(updatedCV) {
+    var show = "" ;
+    for(var i=0; i<this.state.updatedCV.length; i++)
+    show = show + updatedCV[i] + "\n"
+    return show;
+  }
 
     render() {
       const { name, age, email, githubPortofolio, number, updatedCV, isLoading, error } = this.state;
@@ -88,5 +108,6 @@ class UserProfile extends Component {
       );
     }
   }
-
-export default UserProfile;
+  
+  export default UserProfile;
+  
