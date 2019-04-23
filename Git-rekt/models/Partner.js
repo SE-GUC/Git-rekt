@@ -22,47 +22,36 @@ const PartnerSchema = new Schema({
         },
         registered_on: {
                 type: Date,
-                required: true  
         } ,
         com_reg_num: {
                 type: Number,
-                required: true
         },
         info: {
                 type: String,
-                required: true
         },
         signed: {
                 type: Boolean,
-                required: true
         }, 
         rating: {
                 type: Number,
-                required: true
         },
         submitted_tasks: {
                 type: [String],
-                required: true
         },
         notifications:{
                 type: [String],
-            required: true
         },
         associates: {
                 type: [String],
-                required: true
         },
         board_members: {
                 type: [String],
-                required: true
         },
         events: {
                 type: [String],
-                required: true
         },
         feedback: {
                 type: String,
-                required: true
         }
 })
 module.exports = Partner = mongoose.model('partners', PartnerSchema)
