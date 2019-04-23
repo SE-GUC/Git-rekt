@@ -72,42 +72,44 @@ class UserProfile extends Component {
     show = show + updatedCV[i] + "\n"
     return show;
   }
-
-    render() {
-      const { name, age, email, githubPortofolio, number, updatedCV, isLoading, error } = this.state;
-      var show = this.show(githubPortofolio);
-      var show2 = this.show2(updatedCV);
-      if (error) {
-        return <h3>{error.message}</h3>;
-      }
-
-      if (isLoading) {
-        return <h3>Loading ...</h3>;
-      }
   
-      return (
-        <div ClassName='button' Style="color:green;text-align: left;">
-          <button ><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
-          <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
-          <button><a href="http://localhost:3000/UserViewAllAvailableTasks">Apply Task</a></button>
-          <button><a href="http://localhost:3000/UserViewAllCertificates">Apply Certificate</a></button>
-          <button><a href="http://localhost:3000/ViewAllConsultancies">View Consultancy</a></button>
-          <br />
-          <div Style="text-align: justify;">
-          <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>
-            <span Style='Color:black;font-weight: bold;'>name:</span>{name ? " " +name: "not provided"}
-            <br />
-            <span Style='Color:black;font-weight: bold;'>age:</span>{age ? "  " +age: "not provided"}
-            <br />
-            <span Style='Color:black;font-weight: bold;'>email:</span>{email ? "  " +email: "not provided"}<br />
-            <span Style='Color:black;font-weight: bold;'>github:</span>{githubPortofolio ? "  " +show: "not provided"} <br />
-            <span Style='Color:black;font-weight: bold;'>number:</span>{number ? "  " +number: "not provided"}<br />
-            <span Style='Color:black;font-weight: bold;'>CV:</span>{updatedCV ? "  " +show2: "not provided"}
-          </div> 
-        </div>
+  
+  render() {
+    const { name, age, email, githubPortofolio, number, updatedCV, isLoading, error } = this.state;
+    var show = this.show(githubPortofolio);
+    var show2 = this.show2(updatedCV);
+    if (error) {
+      return <h3>{error.message}</h3>;
+    }
+    
+    if (isLoading) {
+      return <h3>Loading ...</h3>;
+    }
+    
+    return (
+      <div ClassName='button' Style="color:green;text-align: left;">
+      <button ><a href="http://localhost:3000/DisplayCertificates">View Certificates</a></button>
+      <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
+      <button><a href="http://localhost:3000/UserViewAllAvailableTasks">Apply Task</a></button>
+      <button><a href="http://localhost:3000/UserViewAllCertificates">Apply Certificate</a></button>
+      <button><a href="http://localhost:3000/ViewAllConsultancies">View Consultancy</a></button>
+      <button><a href="http://localhost:3000/">Logout</a></button>
+      <br />
+      <div Style="text-align: justify;">
+      <h2 Style="color:red;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);">INFORMATION</h2>
+      <span Style='Color:black;font-weight: bold;'>name:</span>{name ? " " +name: "not provided"}
+      <br />
+      <span Style='Color:black;font-weight: bold;'>age:</span>{age ? "  " +age: "not provided"}
+      <br />
+      <span Style='Color:black;font-weight: bold;'>email:</span>{email ? "  " +email: "not provided"}<br />
+      <span Style='Color:black;font-weight: bold;'>github:</span>{githubPortofolio ? "  " +show: "not provided"} <br />
+      <span Style='Color:black;font-weight: bold;'>number:</span>{number ? "  " +number: "not provided"}<br />
+      <span Style='Color:black;font-weight: bold;'>CV:</span>{updatedCV ? "  " +show2: "not provided"}
+      </div> 
+      </div>
       );
     }
-  }
-  
-  export default UserProfile;
+
+}  
+export default UserProfile;
   

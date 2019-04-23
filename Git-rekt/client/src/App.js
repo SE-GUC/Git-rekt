@@ -13,9 +13,11 @@ import PartnerNotifications from './components/PartnerNotification'
 import ConsultancyProfile from './components/ConsultancyProfile'
 import UserViewAllAvailableTasks from './components/UserViewAllAvailableTasks'
 import UpdateUser from './components/UpdateUser'
+import Register from './components/Register';
 import UpdatePartner from './components/UpdatePartner'
 import SubmitTask from './components/SubmitTask'
 import RegistrationPage from './components/RegisterScreen.jsx'
+import RegisterPartnerPage from './components/RegisterPartnerScreen.jsx';
 import ViewTaskItem from './components/ViewTaskItem'
 import ViewTasks from './components/ViewTasks'
 import UserViewAllCertificates from './components/UserViewAllCertificates';
@@ -32,6 +34,7 @@ class App extends Component {
             <Route exact path="/partnerLogin" component={PartnerLogin} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/registerPage" component={RegistrationPage} />
+            <Route exact path="/registerPagePartner" component={RegisterPartnerPage} />
             <Route exact path="/updateUser"component={UpdateUser} />
             <Route exact path="/updatePartner"component={UpdatePartner} />
             <Route exact path="/userProfile" component={UserProfile} />
