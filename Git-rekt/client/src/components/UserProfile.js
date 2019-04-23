@@ -33,7 +33,7 @@ class UserProfile extends Component {
       console.log("can not decode token")
     }
   }
-  
+
   async componentDidMount() {
     this.setState({ isLoading: true });
     try {
@@ -92,7 +92,7 @@ class UserProfile extends Component {
       <button><a href="http://localhost:3000/UpdateUser">Update Profile</a></button>
       <button><a href="http://localhost:3000/UserViewAllAvailableTasks">Apply Task</a></button>
       <button><a href="http://localhost:3000/UserViewAllCertificates">Apply Certificate</a></button>
-      <button><a href="http://localhost:3000/UpdateUser">View Consultancy</a></button>
+      <button><a href="http://localhost:3000/ViewAllConsultancies">View Consultancy</a></button>
       <button><a href="http://localhost:3000/">Logout</a></button>
       <br />
       <div Style="text-align: justify;">
@@ -109,7 +109,7 @@ class UserProfile extends Component {
       </div>
       );
     }
-  }
-  
-  export default UserProfile;
+
+}  
+export default UserProfile;
   
